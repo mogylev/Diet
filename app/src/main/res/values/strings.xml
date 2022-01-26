@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Diet</string>
+
+    //Main screen
+    <string name="breakfast">Завтрак</string>
+    <string name="breakfast_snack">Второй завтрак</string>
+    <string name="lunch">Обед</string>
+    <string name="lunch_snack">Полдник</string>
+    <string name="dinner">Ужин</string>
+
+    <string name="calories">эн.цен:</string>
+    <string name="proteins">белки:</string>
+    <string name="fats">жиры:</string>
+    <string name="carbohydrates">угл:</string>
+
+</resources>

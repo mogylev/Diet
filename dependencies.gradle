@@ -1,0 +1,19 @@
+ext {
+        libs = [
+                //androidX
+                core_ktx : "1.7.0",
+                appcompat : "1.4.0",
+
+                //material
+                material : "1.5.0",
+
+                //compose
+                compose: "1.0.5",
+                compose_compiler : "1.1.0-rc02",
+                //room
+                roomVersion : "2.4.0",
+
+                //dagger
+                dagger : "2.40.5"
+        ]
+}
