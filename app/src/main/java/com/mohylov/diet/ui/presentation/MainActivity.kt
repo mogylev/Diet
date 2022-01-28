@@ -10,12 +10,7 @@ import com.mohylov.diet.ui.presentation.main.MainScreenFragment
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setContentView(R.layout.activity_main)
         super.onCreate(savedInstanceState)
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().replace(
-                R.id.main_container, MainScreenFragment()
-            ).commit()
-        }
+        setContentView(R.layout.activity_main)
     }
 }
