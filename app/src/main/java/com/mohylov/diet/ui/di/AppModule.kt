@@ -12,14 +12,9 @@ import javax.inject.Singleton
 @Module(includes = [AppBindModule::class])
 class AppModule {
 
-
-    @AppCoroutineScope
     @Singleton
     @Provides
     fun provideApplicationScope() = CoroutineScope(SupervisorJob())
 
 }
 
-@Retention(AnnotationRetention.RUNTIME)
-@Qualifier
-annotation class AppCoroutineScope

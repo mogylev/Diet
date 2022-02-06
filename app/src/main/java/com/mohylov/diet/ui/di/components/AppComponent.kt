@@ -6,6 +6,7 @@ import com.mohylov.diet.ui.di.AppModule
 import com.mohylov.diet.ui.di.DataBaseModule
 import dagger.BindsInstance
 import dagger.Component
+import kotlinx.coroutines.CoroutineScope
 import javax.inject.Singleton
 
 @Component(modules = [AppModule::class, DataBaseModule::class])
@@ -13,6 +14,8 @@ import javax.inject.Singleton
 interface AppComponent {
 
     val productDao: ProductDao
+
+    val appCoroutineScope: CoroutineScope
 
     @Component.Builder
     interface Builder {
