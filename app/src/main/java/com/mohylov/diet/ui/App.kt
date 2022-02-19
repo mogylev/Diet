@@ -2,8 +2,8 @@ package com.mohylov.diet.ui
 
 import android.app.Application
 import android.content.Context
-import com.mohylov.diet.ui.di.components.AppComponent
-import com.mohylov.diet.ui.di.components.DaggerAppComponent
+import com.mohylov.diet.ui.di.AppComponent
+import com.mohylov.diet.ui.di.DaggerAppComponent
 
 
 class App : Application() {

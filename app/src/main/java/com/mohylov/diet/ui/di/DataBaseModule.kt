@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.mohylov.diet.ui.data.db.AppDatabase
-import com.mohylov.diet.ui.data.db.ProductDao
+import com.mohylov.diet.ui.data.product.ProductDao
 import dagger.Module
 import dagger.Provides
 
@@ -30,6 +30,6 @@ import javax.inject.Singleton
 
     @Provides
     fun provideFoodDao(appDatabase: AppDatabase) : ProductDao {
-        return appDatabase.foodDao()
+        return appDatabase.productsDao()
     }
 }

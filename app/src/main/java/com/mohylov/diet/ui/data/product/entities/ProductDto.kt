@@ -2,7 +2,10 @@ package com.mohylov.diet.ui.data.product.entities
 
 import com.google.gson.annotations.SerializedName
 
-data class Product (
+/**
+ * protein, fats, carbohydrates, calories - values per 100g
+ */
+data class ProductDto (
     @SerializedName("description")
     val description:String,
     @SerializedName("protein")

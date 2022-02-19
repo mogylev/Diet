@@ -1,10 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <include
-        android:id="@+id/toolbar"
-        layout="@layout/topbar_layout" />
+        android:id="@+id/topBar"
+        layout="@layout/topbar_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mealsRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/totalNutrientsBar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar" />
+
+    <!--    <androidx.core.widget.NestedScrollView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/totalNutrientsBar"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/topBar">-->
+
+    <!--        <androidx.appcompat.widget.LinearLayoutCompat-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:orientation="vertical">-->
+
+    <!--            <include-->
+    <!--                android:id="@+id/breakfastCard"-->
+    <!--                layout="@layout/meal_header_item" />-->
+
+    <!--            <androidx.recyclerview.widget.RecyclerView-->
+    <!--                android:id="@+id/breakfastRecycler"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:orientation="vertical"-->
+    <!--                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />-->
+
+    <!--            <include-->
+    <!--                android:id="@+id/breakfastSnackCard"-->
+    <!--                layout="@layout/meal_header_item" />-->
+
+    <!--            &lt;!&ndash;            <View&ndash;&gt;-->
+    <!--            &lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;-->
+    <!--            &lt;!&ndash;                android:layout_height="1dp"&ndash;&gt;-->
+    <!--            &lt;!&ndash;                android:background="@color/grey" />&ndash;&gt;-->
+
+    <!--            <androidx.recyclerview.widget.RecyclerView-->
+    <!--                android:id="@+id/breakfastSnackRecycler"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:orientation="vertical"-->
+    <!--                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />-->
+
+    <!--            <include-->
+    <!--                android:id="@+id/lunchCard"-->
+    <!--                layout="@layout/meal_header_item" />-->
+
+    <!--            <androidx.recyclerview.widget.RecyclerView-->
+    <!--                android:id="@+id/lunchRecycler"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:orientation="vertical"-->
+    <!--                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />-->
+
+    <!--            <include-->
+    <!--                android:id="@+id/lunchSnackCard"-->
+    <!--                layout="@layout/meal_header_item" />-->
+
+    <!--            <androidx.recyclerview.widget.RecyclerView-->
+    <!--                android:id="@+id/lunchSnackRecycler"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:orientation="vertical"-->
+    <!--                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />-->
+
+    <!--            <include-->
+    <!--                android:id="@+id/dinnerCard"-->
+    <!--                layout="@layout/meal_header_item" />-->
+
+    <!--            <androidx.recyclerview.widget.RecyclerView-->
+    <!--                android:id="@+id/dinnerRecycler"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:orientation="vertical"-->
+    <!--                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />-->
+
+    <!--        </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+
+    <!--    </androidx.core.widget.NestedScrollView>-->
+
+
+    <include
+        android:id="@+id/totalNutrientsBar"
+        layout="@layout/total_nutrients_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

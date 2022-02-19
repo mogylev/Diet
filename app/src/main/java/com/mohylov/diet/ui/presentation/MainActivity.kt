@@ -3,8 +3,11 @@ package com.mohylov.diet.ui.presentation
 import android.os.Bundle
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.mohylov.diet.R
 import com.mohylov.diet.ui.presentation.main.MainScreenFragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {

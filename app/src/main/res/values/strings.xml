@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Diet</string>
 
+    <string name="ok_button_text">OK</string>
+    <string name="cancel_button_text">Cancel</string>
+
     //Main screen
     <string name="breakfast">Завтрак</string>
     <string name="breakfast_snack">Второй завтрак</string>
@@ -8,9 +11,13 @@
     <string name="lunch_snack">Полдник</string>
     <string name="dinner">Ужин</string>
 
-    <string name="calories">эн.цен:</string>
-    <string name="proteins">белки:</string>
-    <string name="fats">жиры:</string>
-    <string name="carbohydrates">угл:</string>
+    <string name="remove_meal_product_dialog_title">Удалить этот продукт?</string>
+
+    <string name="totalAmount">Съедено: %d г</string>
+    <string name="calories">эн.цен: %d ккал</string>
+    <string name="proteins">белки: %.1f г</string>
+    <string name="fats">жиры: %.1f г</string>
+    <string name="carbohydrates">угл: %.1f г</string>
+    <string name="total_text">Всего</string>
 
 </resources>

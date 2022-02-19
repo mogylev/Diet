@@ -5,5 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ProductsInteractor {
 
-    fun getFoods():Flow<List<ProductItem>>
+    fun getProducts(): Flow<List<ProductItem>>
+
+    fun getProductsBySearchFilter(searchFilter: String): Flow<List<ProductItem>>
 }

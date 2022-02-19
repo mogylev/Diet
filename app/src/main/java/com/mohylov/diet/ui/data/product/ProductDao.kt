@@ -1,4 +1,4 @@
-package com.mohylov.diet.ui.data.db
+package com.mohylov.diet.ui.data.product
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -11,9 +11,12 @@ import kotlinx.coroutines.flow.Flow
 interface ProductDao {
 
     @Query("SELECT * FROM products")
-    fun getAll() : Flow<List<ProductEntity>>
+    fun getAll(): List<ProductEntity>
+
+    @Query("SELECT * FROM products WHERE name LIKE '%' || :filter || '%'")
+    fun getFilteredProducts(filter: String): List<ProductEntity>
 
     @Insert(onConflict = REPLACE)
-    fun insertAllFoods(foodsList:List<ProductEntity>)
+    fun insertAllFoods(foodsList: List<ProductEntity>)
 
 }

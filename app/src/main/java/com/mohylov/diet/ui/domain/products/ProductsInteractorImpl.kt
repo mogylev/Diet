@@ -5,9 +5,14 @@ import com.mohylov.diet.ui.domain.products.entities.ProductItem
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class ProductsInteractorImpl @Inject constructor(private val productsRepository: ProductsRepository) : ProductsInteractor {
+class ProductsInteractorImpl @Inject constructor(private val productsRepository: ProductsRepository) :
+    ProductsInteractor {
 
-    override fun getFoods(): Flow<List<ProductItem>> {
+    override fun getProducts(): Flow<List<ProductItem>> {
         return productsRepository.getFoods()
+    }
+
+    override fun getProductsBySearchFilter(searchFilter: String): Flow<List<ProductItem>> {
+        return productsRepository.getFoodsBySearchQuery(searchFilter)
     }
 }

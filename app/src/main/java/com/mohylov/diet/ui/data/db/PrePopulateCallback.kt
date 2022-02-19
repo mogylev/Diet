@@ -2,9 +2,10 @@ package com.mohylov.diet.ui.data.db
 
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.mohylov.diet.ui.data.product.ProductDao
 import com.mohylov.diet.ui.data.product.entities.ProductEntity
 import com.mohylov.diet.ui.data.product.productDataProvider.InitialProductsDataProvider
-import com.mohylov.diet.ui.domain.toFoodEntity
+import com.mohylov.diet.ui.domain.toProductEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,7 +21,7 @@ class PrePopulateCallback @Inject constructor(
     override fun onCreate(db: SupportSQLiteDatabase) {
         super.onCreate(db)
         coroutineScope.launch {
-            val initialFoodList = productsDataProvider.provideFoodData().map { it.toFoodEntity() }
+            val initialFoodList = productsDataProvider.provideFoodData().map { it.toProductEntity() }
             populateFoodDao(initialFoodList)
         }
     }

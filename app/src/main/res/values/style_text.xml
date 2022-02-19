@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="titleStyle" parent="TextAppearance.MaterialComponents.Headline5" />
+
+    <style name="textSubtitle1" parent="TextAppearance.MaterialComponents.Subtitle1" />
+
+    <style name="textSubtitle2Bold" parent="TextAppearance.MaterialComponents.Subtitle2"/>
+
+</resources>

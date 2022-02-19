@@ -1,6 +1,6 @@
 package com.mohylov.diet.ui.di.components.mainComponent
 
-import com.mohylov.diet.ui.di.components.AppComponent
+import com.mohylov.diet.ui.di.AppComponent
 import com.mohylov.diet.ui.presentation.main.MainScreenFragment
 import dagger.Component
 
