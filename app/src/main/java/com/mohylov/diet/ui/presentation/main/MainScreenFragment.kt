@@ -32,10 +32,13 @@ import com.mohylov.diet.ui.presentation.utils.showDialog
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 import kotlin.math.log
 
 class MainScreenFragment : Fragment(R.layout.fragment_main) {
+
+    private val dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
 
     @Inject
     lateinit var factory: BaseViewModelFactory
@@ -59,6 +62,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.topBar.root.setBackgroundColor(requireContext().getColor(R.color.primaryColor))
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.updateData()
@@ -72,6 +76,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main) {
         viewModel.stateData.observe(viewLifecycleOwner) { state ->
             mealConcatAdapter.submitList(state.mealsItems)
             handleNutrientsResult(state.nutrientsResult)
+            binding.topBar.root.title = dateFormatter.format(state.date)
         }
         viewModel.navigationData.observe(viewLifecycleOwner) {
             when (it) {
@@ -122,7 +127,6 @@ class MainScreenFragment : Fragment(R.layout.fragment_main) {
     private fun initializeRecyclers() {
         val mealHeaderAdapter = MealHeaderAdapterDelegate().apply {
             clickFlow.onEach {
-                Log.e("tag!!!", "onlick FRAMGENT: ", )
                 viewModel.onMealHeaderClick(it)
             }.launchIn(viewLifecycleOwner.lifecycleScope)
         }

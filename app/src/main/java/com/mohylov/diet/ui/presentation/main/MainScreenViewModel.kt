@@ -1,6 +1,5 @@
 package com.mohylov.diet.ui.presentation.main
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.mohylov.diet.ui.domain.mealProducts.MealProductsInteractor
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealProductItem
@@ -9,7 +8,6 @@ import com.mohylov.diet.ui.domain.mealProductsCalculator.entities.NutrtientResul
 import com.mohylov.diet.ui.domain.mealProductsManagement.MealProductsManagementInteractor
 import com.mohylov.diet.ui.presentation.base.BaseViewModel
 import com.mohylov.diet.ui.presentation.base.NavigationActions
-import com.mohylov.diet.ui.presentation.main.adapters.ProductViewItem
 import com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapterItem
 import com.mohylov.diet.ui.presentation.main.adapters.entities.MealHeaderDelegateItem
 import com.mohylov.diet.ui.presentation.main.adapters.entities.MealItem

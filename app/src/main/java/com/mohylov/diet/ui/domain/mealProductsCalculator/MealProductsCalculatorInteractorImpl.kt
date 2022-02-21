@@ -14,20 +14,20 @@ class MealProductsCalculatorInteractorImpl @Inject constructor() : MealProductCa
             var totalFats = 0f
             var totalCarbs = 0f
             var totalProteins = 0f
-            var totalCaloriest = 0
+            var totalCalories = 0
             mealProducts.forEach {
-                totalAmount = +it.amount
-                totalFats = +it.fats
-                totalCarbs = +it.carbohydrates
-                totalProteins = +it.protein
-                totalCaloriest = +it.calories
+                totalAmount += it.amount
+                totalFats += it.fats
+                totalCarbs += it.carbohydrates
+                totalProteins += it.protein
+                totalCalories += it.calories
             }
             return@withContext NutrtientResult(
                 totalAmount = totalAmount,
                 totalFats = totalFats,
                 totalCarbohydrates = totalCarbs,
                 totalProteins = totalProteins,
-                totalCalories = totalCaloriest
+                totalCalories = totalCalories
             )
         }
     }
