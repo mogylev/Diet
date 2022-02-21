@@ -2,6 +2,7 @@ package com.mohylov.diet.ui.presentation.main.adapters.entities
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.mohylov.diet.databinding.MealHeaderItemBinding
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealType
@@ -13,7 +14,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 
 class MealHeaderDelegateItem(
     val mealType: MealType,
-    val mealNameResId: Int
+    @StringRes val mealNameResId: Int
 ) : DelegateAdapterItem {
 
     override fun id(): Any {

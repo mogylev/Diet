@@ -9,7 +9,7 @@
     <color name="primaryTextColor">#263238</color>
     <color name="secondaryTextColor">#212121</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#FFFFFF</color>
     <color name="red">#EF0000</color>
     <color name="blue">#3557FF</color>
     <color name="grey">#BEC1CF</color>

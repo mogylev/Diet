@@ -2,6 +2,7 @@ package com.mohylov.diet.ui.presentation.utils
 
 import android.content.Context
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.mohylov.diet.R
 
 fun Context.showDialog(
     titleResId: Int? = null,

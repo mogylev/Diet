@@ -22,7 +22,7 @@ class MealProductsManagementImpl @Inject constructor(private val mealProductsRep
                 protein = (productItem.protein / 100f) * amount,
                 fats = (productItem.fats / 100f) * amount,
                 carbohydrates = (productItem.carbohydrates / 100f) * amount,
-                calories = (productItem.calories / 100) * amount,
+                calories = ((productItem.calories / 100f) * amount).toInt(),
                 amount = amount,
                 type = mealType,
                 date = date
