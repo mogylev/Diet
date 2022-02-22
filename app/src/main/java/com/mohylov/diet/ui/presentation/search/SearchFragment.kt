@@ -52,6 +52,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
         initClickProductListener()
+        binding.topBar.root.title = getString(args.mealInfo.mealNameResId)
+        binding.topBar.root.setBackgroundColor(requireContext().getColor(R.color.primaryColor))
         binding.searchRecycler.adapter = searchAdapter
         binding.searchInputLayout.editText?.let { editText ->
             editText.onTextChaged()
@@ -68,6 +70,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             searchAdapter.submitList(it.filteredProducts)
         }
 
+        viewModel.actionsData.observe(viewLifecycleOwner) {
+            handleSearchActions(it)
+        }
+
         viewModel.navigationData.observe(viewLifecycleOwner) {
             when (it) {
                 is NavigationActions.PopBackStack -> {
@@ -75,6 +81,28 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 }
                 is NavigationActions.NavigationAction -> {
                     findNavController().navigate(it.direction)
+                }
+            }
+        }
+
+        childFragmentManager.setFragmentResultListener(
+            AmountBottomSheetDialog.resultInfoKey,
+            viewLifecycleOwner
+        ) { key, bundle ->
+            bundle.getParcelable<AmountInfo>(AmountBottomSheetDialog.resultInfoKey)?.apply {
+                viewModel.onProductAmountSelected(this)
+            }
+        }
+    }
+
+    private fun handleSearchActions(searchViewAction: SearchViewActions) {
+        when (searchViewAction) {
+            is SearchViewActions.AmountConfirmationAction -> {
+                AmountBottomSheetDialog.instance(
+                    searchViewAction.productId,
+                    searchViewAction.dedaultAmount
+                ).also {
+                    it.show(childFragmentManager, this::class.simpleName)
                 }
             }
         }

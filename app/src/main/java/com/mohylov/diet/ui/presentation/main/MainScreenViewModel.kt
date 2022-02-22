@@ -51,7 +51,8 @@ class MainViewModel @Inject constructor(
                 MainScreenFragmentDirections.actionMainScreenFragmentToSearchFragment(
                     mealInfo = MealInfo(
                         mealType = mealHeader.mealType,
-                        date = getViewState().date.toString()
+                        date = getViewState().date.toString(),
+                        mealNameResId = mealHeader.mealNameResId
                     )
                 )
             )

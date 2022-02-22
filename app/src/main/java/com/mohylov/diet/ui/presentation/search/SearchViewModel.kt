@@ -1,12 +1,10 @@
 package com.mohylov.diet.ui.presentation.search
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.mohylov.diet.ui.domain.mealProductsManagement.MealProductsManagementInteractor
 import com.mohylov.diet.ui.domain.products.ProductsInteractor
-import com.mohylov.diet.ui.domain.products.entities.ProductItem
 import com.mohylov.diet.ui.domain.toProductItem
 import com.mohylov.diet.ui.domain.toProductViewItem
 import com.mohylov.diet.ui.presentation.base.BaseViewModel
@@ -41,13 +39,23 @@ class SearchViewModel(
     }
 
     fun onProductClicked(productViewItem: ProductViewItem) {
+        updateAction(
+            SearchViewActions.AmountConfirmationAction(
+                productId = productViewItem.id,
+                dedaultAmount = 100
+            )
+        )
+    }
+
+    fun onProductAmountSelected(amountInfo: AmountInfo) {
         viewModelScope.launch {
-            Log.e("tag!!!", "onProductClicked:  ${LocalDate.parse(mealInfo.date)}")
+            val productItem = getViewState().filteredProducts.find { it.id == amountInfo.productId }
+                ?: return@launch
             mealProductsManagementInteractor.insertMealProduct(
                 mealType = mealInfo.mealType,
-                productItem = productViewItem.toProductItem(),
+                productItem = productItem.toProductItem(),
                 date = LocalDate.parse(mealInfo.date),
-                amount = 100
+                amount = amountInfo.amount
             )
             navigate(NavigationActions.PopBackStack)
         }
@@ -97,6 +105,8 @@ data class SearchViewState(
 
 sealed class SearchViewActions {
 
+    class AmountConfirmationAction(val productId: Long, val dedaultAmount: Int) :
+        SearchViewActions()
 }
 
 
