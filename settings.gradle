@@ -7,3 +7,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Diet"
 include ':app'
+include ':data'
+include ':domain'

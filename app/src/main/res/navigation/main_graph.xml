@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/mainScreenFragment"
-        android:name="com.mohylov.diet.ui.presentation.main.MainScreenFragment"
+        android:name="com.mohylov.diet.presentation.main.MainScreenFragment"
         android:label="MainScreenFragment" >
         <action
             android:id="@+id/action_mainScreenFragment_to_searchFragment"
@@ -14,10 +14,10 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.mohylov.diet.ui.presentation.search.SearchFragment"
+        android:name="com.mohylov.diet.presentation.search.SearchFragment"
         android:label="SearchFragment" >
         <argument
             android:name="mealInfo"
-            app:argType="com.mohylov.diet.ui.presentation.search.MealInfo" />
+            app:argType="com.mohylov.diet.presentation.search.MealInfo" />
     </fragment>
 </navigation>
