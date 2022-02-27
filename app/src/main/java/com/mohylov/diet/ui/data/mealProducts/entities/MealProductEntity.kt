@@ -8,6 +8,7 @@ import java.time.LocalDate
 @Entity(tableName = "mealProducts")
 data class MealProductEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val productId: Long,
     val name: String,
     val protein: Float,
     val fats: Float,

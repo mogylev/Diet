@@ -19,6 +19,7 @@ class MealProductsManagementImpl @Inject constructor(private val mealProductsRep
         mealProductsRepository.insertMealProduct(
             MealProductItem(
                 name = productItem.name,
+                productId = productItem.id,
                 protein = (productItem.protein / 100f) * amount,
                 fats = (productItem.fats / 100f) * amount,
                 carbohydrates = (productItem.carbohydrates / 100f) * amount,

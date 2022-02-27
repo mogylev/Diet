@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/calories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="@string/calories" />
+
+    <TextView
+        android:id="@+id/proteins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="@string/proteins" />
+
+    <TextView
+        android:id="@+id/fats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="@string/fats" />
+
+    <TextView
+        android:id="@+id/carbohydrates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="@string/carbohydrates" />
+
+</LinearLayout>
