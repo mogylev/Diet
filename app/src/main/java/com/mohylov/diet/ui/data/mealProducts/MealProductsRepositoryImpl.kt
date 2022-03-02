@@ -28,6 +28,12 @@ class MealProductsRepositoryImpl @Inject constructor(private val mealProductDao:
         }.flowOn(Dispatchers.IO)
     }
 
+    override suspend fun getMealProductById(mealProductId: Long): MealProductItem {
+       return withContext(Dispatchers.IO){
+            mealProductDao.getMealProductById(mealProductId).toMealProductItem()
+        }
+    }
+
     override suspend fun insertMealProduct(mealProductItem: MealProductItem) {
         mealProductDao.insertMealProduct(mealProductItem.toMealProductEntity())
     }

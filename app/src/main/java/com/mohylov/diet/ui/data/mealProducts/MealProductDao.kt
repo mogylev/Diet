@@ -12,6 +12,9 @@ interface MealProductDao {
     @Query("SELECT * FROM mealProducts")
     fun getAllMealProducts(): List<MealProductEntity>
 
+    @Query("SELECT * FROM mealProducts WHERE id = :mealProductId")
+    fun getMealProductById(mealProductId: Long): MealProductEntity
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMealProduct(mealProductEntity: MealProductEntity)
 

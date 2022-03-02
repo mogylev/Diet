@@ -10,7 +10,9 @@ interface MealProductsRepository {
 
     fun getMealProductsByDate(date: LocalDate): Flow<List<MealProductItem>>
 
+    suspend fun getMealProductById(mealProductId: Long): MealProductItem
+
     suspend fun insertMealProduct(mealProductItem: MealProductItem)
 
-    suspend fun removeMealProduct(mealProductItem: Long)
+    suspend fun removeMealProduct(productId: Long)
 }

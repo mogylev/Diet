@@ -16,6 +16,9 @@ interface ProductDao {
     @Query("SELECT * FROM products WHERE name LIKE '%' || :filter || '%'")
     fun getFilteredProducts(filter: String): List<ProductEntity>
 
+    @Query("SELECT * FROM products WHERE id = :productId")
+    fun getProductById(productId: Long): ProductEntity
+
     @Insert(onConflict = REPLACE)
     fun insertAllFoods(foodsList: List<ProductEntity>)
 

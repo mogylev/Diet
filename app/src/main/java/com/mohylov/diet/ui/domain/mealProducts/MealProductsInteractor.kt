@@ -10,4 +10,6 @@ interface MealProductsInteractor {
 
     fun getMealProducts(): Flow<List<MealProductItem>>
 
+    suspend fun getMealProductById(mealProductId: Long): MealProductItem
+
 }

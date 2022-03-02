@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_mainScreenFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_mealEditFragment"
+            app:destination="@id/mealEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -19,5 +22,13 @@
         <argument
             android:name="mealInfo"
             app:argType="com.mohylov.diet.ui.presentation.search.MealInfo" />
+    </fragment>
+    <fragment
+        android:id="@+id/mealEditFragment"
+        android:name="com.mohylov.diet.ui.presentation.mealEdit.MealEditFragment"
+        android:label="MealEditFragment" >
+        <argument
+            android:name="mealProductId"
+            app:argType="long" />
     </fragment>
 </navigation>

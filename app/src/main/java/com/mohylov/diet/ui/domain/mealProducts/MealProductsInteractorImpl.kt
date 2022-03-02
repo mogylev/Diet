@@ -16,4 +16,8 @@ class MealProductsInteractorImpl @Inject constructor(private val mealProductsRep
     override fun getMealProducts(): Flow<List<MealProductItem>> {
         return mealProductsRepository.getMealProducts()
     }
+
+    override suspend fun getMealProductById(mealProductId: Long): MealProductItem {
+        return mealProductsRepository.getMealProductById(mealProductId)
+    }
 }
