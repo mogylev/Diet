@@ -8,6 +8,8 @@ import com.mohylov.diet.ui.data.product.ProductDao
 import com.mohylov.diet.ui.data.product.ProductsRepository
 import com.mohylov.diet.ui.data.product.ProductsRepositoryImpl
 import com.mohylov.diet.ui.di.AppComponent
+import com.mohylov.diet.ui.domain.completeMealProduct.CompleteMealProductInteractor
+import com.mohylov.diet.ui.domain.completeMealProduct.CompleteMealProductInteractorImpl
 import com.mohylov.diet.ui.domain.mealProducts.MealProductsInteractor
 import com.mohylov.diet.ui.domain.mealProducts.MealProductsInteractorImpl
 import com.mohylov.diet.ui.domain.mealProductsManagement.MealProductsManagementImpl
@@ -51,13 +53,10 @@ interface MealEditModule {
     fun bindMealProductsRepository(mealProductsRepositoryImpl: MealProductsRepositoryImpl): MealProductsRepository
 
     @Binds
-    fun bindProductsInteractor(productsInteractorImpl: ProductsInteractorImpl): ProductsInteractor
-
-    @Binds
-    fun bindMealProductsInteractor(mealProductsInteractorImpl: MealProductsInteractorImpl): MealProductsInteractor
-
-    @Binds
     fun bindMealProductsManagementInteractor(mealProductsManagementImpl: MealProductsManagementImpl): MealProductsManagementInteractor
+
+    @Binds
+    fun bindCompleteMealProductInteractor(completeMealProductInteractorImpl: CompleteMealProductInteractorImpl): CompleteMealProductInteractor
 
     companion object {
 

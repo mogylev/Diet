@@ -2,7 +2,6 @@ package com.mohylov.diet.ui.presentation.main
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.util.SparseArray
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -23,18 +22,16 @@ import com.mohylov.diet.ui.presentation.base.NavigationActions
 import com.mohylov.diet.ui.presentation.base.scopedComponent
 import com.mohylov.diet.ui.presentation.base.viewBinding
 import com.mohylov.diet.ui.presentation.main.adapters.MealConcatAdapter
-import com.mohylov.diet.ui.presentation.main.adapters.ProductsAdapter
 import com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapter
 import com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapterItem
-import com.mohylov.diet.ui.presentation.main.adapters.entities.MealHeaderAdapterDelegate
-import com.mohylov.diet.ui.presentation.main.adapters.entities.MealProductDelegateAdapter
+import com.mohylov.diet.ui.presentation.main.entities.MealHeaderAdapterDelegate
+import com.mohylov.diet.ui.presentation.main.entities.MealProductDelegateAdapter
 import com.mohylov.diet.ui.presentation.utils.showDialog
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
-import kotlin.math.log
 
 class MainScreenFragment : Fragment(R.layout.fragment_main) {
 
@@ -133,6 +130,10 @@ class MainScreenFragment : Fragment(R.layout.fragment_main) {
         val mealProductsAdapter = MealProductDelegateAdapter().apply {
             longClickFlow.onEach {
                 viewModel.onMealProductLongClick(it)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+            clickFlow.onEach {
+                viewModel.onMealProductClick(it)
             }.launchIn(viewLifecycleOwner.lifecycleScope)
         }
         val spars = SparseArray<DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>>()

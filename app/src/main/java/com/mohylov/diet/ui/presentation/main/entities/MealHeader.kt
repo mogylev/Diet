@@ -1,4 +1,4 @@
-package com.mohylov.diet.ui.presentation.main.adapters.entities
+package com.mohylov.diet.ui.presentation.main.entities
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

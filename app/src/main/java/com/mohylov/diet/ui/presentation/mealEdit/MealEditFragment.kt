@@ -29,16 +29,36 @@ class MealEditFragment : Fragment(R.layout.fragment_meal_edit) {
     }
 
     private val viewModel: MealEditViewModel by viewModels {
-        factory.create(args.mealProductId)
+        factory.create(args.mealProductInfo)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        component.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initObservers()
     }
 
+    private fun initObservers() {
+        viewModel.stateData.observe(viewLifecycleOwner) {
+            binding.productName.text = it.productName
+            binding.valueEditText.setText(it.productValue.toString())
+            handleProductNutrientsInfo(it.productNutrientsInfo)
+        }
+    }
+
+    private fun handleProductNutrientsInfo(productNutrientsInfo: ProductNutrientsInfo) {
+        binding.productDefaultInfoLayout.proteins.text =
+            resources.getString(R.string.proteins, productNutrientsInfo.proteins)
+        binding.productDefaultInfoLayout.fats.text =
+            resources.getString(R.string.fats, productNutrientsInfo.fats)
+        binding.productDefaultInfoLayout.carbohydrates.text =
+            resources.getString(R.string.carbohydrates, productNutrientsInfo.carbohydrates)
+        binding.productDefaultInfoLayout.calories.text =
+            resources.getString(R.string.calories, productNutrientsInfo.calories)
+    }
 
 }

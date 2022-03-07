@@ -1,44 +1,58 @@
 package com.mohylov.diet.ui.presentation.mealEdit
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.mohylov.diet.ui.domain.mealProducts.MealProductsInteractor
+import androidx.lifecycle.viewModelScope
+import com.mohylov.diet.ui.domain.completeMealProduct.CompleteMealProductInteractor
 import com.mohylov.diet.ui.domain.mealProductsManagement.MealProductsManagementInteractor
 import com.mohylov.diet.ui.presentation.base.BaseViewModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 class MealEditViewModel(
-    private val mealProductId: Long,
-    private val productsInteractor: MealProductsInteractor,
-    private val mealProductsInteractor: MealProductsInteractor,
-    private val mealProductsManagementInteractor: MealProductsManagementInteractor
+    private val mealProductInfo: MealProductInfo,
+    private val mealProductsManagementInteractor: MealProductsManagementInteractor,
+    private val completeMealProductInteractor: CompleteMealProductInteractor
 ) : BaseViewModel<MealEditViewState, MealEditViewActions>() {
 
     init {
-        initViewState()
-        Log.e("tag!!!", ":  $mealProductId", )
+        initialState()
+        updateData()
     }
 
+    private fun updateData() {
+        viewModelScope.launch {
+            val completeMealProductItem =
+                completeMealProductInteractor.getCompleteMealProduct(mealProductId = mealProductInfo.id)
+            updateState(
+                getViewState().copy(
+                    productValue = completeMealProductItem.amount,
+                    productNutrientsInfo = ProductNutrientsInfo(
+                        proteins = completeMealProductItem.productItem.protein,
+                        fats = completeMealProductItem.productItem.fats,
+                        carbohydrates = completeMealProductItem.productItem.carbohydrates,
+                        calories = completeMealProductItem.productItem.calories
+                    )
+                )
+            )
+        }
+    }
 
     class ViewModelFactory @AssistedInject constructor(
-        @Assisted private val mealProductId: Long,
-        private val productsInteractor: MealProductsInteractor,
-        private val mealProductsInteractor: MealProductsInteractor,
-        private val mealProductsManagementInteractor: MealProductsManagementInteractor
+        @Assisted("mealProductInfo") private val mealProductInfo: MealProductInfo,
+        private val mealProductsManagementInteractor: MealProductsManagementInteractor,
+        private val completeMealProductInteractor: CompleteMealProductInteractor
     ) : ViewModelProvider.Factory {
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            check(modelClass.isAssignableFrom(MealEditViewModel::class.java))
+            require(modelClass == MealEditViewModel::class.java)
             return MealEditViewModel(
-                mealProductId,
-                productsInteractor,
-                mealProductsInteractor,
-                mealProductsManagementInteractor
+                mealProductInfo,
+                mealProductsManagementInteractor,
+                completeMealProductInteractor
             ) as T
         }
 
@@ -46,11 +60,17 @@ class MealEditViewModel(
 
     @AssistedFactory
     interface Factory {
-        fun create(mealProductId: Long): ViewModelFactory
+
+        fun create(@Assisted("mealProductInfo") mealProductInfo: MealProductInfo): ViewModelFactory
     }
 
-    private fun initViewState() {
-        stateData.value = MealEditViewState(false)
+    private fun initialState() {
+        stateData.value = MealEditViewState(
+            isLoading = false,
+            productName = mealProductInfo.productName,
+            productValue = 0,
+            productNutrientsInfo = ProductNutrientsInfo.empty()
+        )
     }
 
     private fun getViewState(): MealEditViewState {
@@ -60,8 +80,10 @@ class MealEditViewModel(
 }
 
 data class MealEditViewState(
-    val isLoading: Boolean
-)
+    val isLoading: Boolean,
+    val productName: String,
+    val productValue: Int,
+    val productNutrientsInfo: ProductNutrientsInfo)
 
 sealed class MealEditViewActions {
 

@@ -9,9 +9,10 @@ import com.mohylov.diet.ui.domain.mealProductsManagement.MealProductsManagementI
 import com.mohylov.diet.ui.presentation.base.BaseViewModel
 import com.mohylov.diet.ui.presentation.base.NavigationActions
 import com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapterItem
-import com.mohylov.diet.ui.presentation.main.adapters.entities.MealHeaderDelegateItem
-import com.mohylov.diet.ui.presentation.main.adapters.entities.MealItem
-import com.mohylov.diet.ui.presentation.main.adapters.entities.MealProductDelegateAdapterItem
+import com.mohylov.diet.ui.presentation.main.entities.MealHeaderDelegateItem
+import com.mohylov.diet.ui.presentation.main.entities.MealItem
+import com.mohylov.diet.ui.presentation.main.entities.MealProductDelegateAdapterItem
+import com.mohylov.diet.ui.presentation.mealEdit.MealProductInfo
 import com.mohylov.diet.ui.presentation.search.MealInfo
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -64,6 +65,20 @@ class MainViewModel @Inject constructor(
             MainScreenViewActions.RemoveProductRequestAction(product)
         )
     }
+
+    fun onMealProductClick(product: MealProductDelegateAdapterItem) {
+        navigate(
+            NavigationActions.NavigationAction(
+                MainScreenFragmentDirections.actionMainScreenFragmentToMealEditFragment(
+                    mealProductInfo = MealProductInfo(
+                        id = product.id,
+                        productName = product.name
+                    )
+                )
+            )
+        )
+    }
+
 
     fun onRemoveProductConfirm(product: MealProductDelegateAdapterItem) {
         viewModelScope.launch {
