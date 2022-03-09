@@ -18,6 +18,9 @@ interface MealProductDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMealProduct(mealProductEntity: MealProductEntity)
 
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateMealProduct(mealProductEntity: MealProductEntity): Int
+
     @Query("DELETE FROM mealProducts WHERE id = :productId")
     suspend fun deleteMealProduct(productId: Long)
 }

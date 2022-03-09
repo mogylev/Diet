@@ -29,6 +29,6 @@
         android:label="MealEditFragment" >
         <argument
             android:name="mealProductInfo"
-            app:argType="com.mohylov.diet.ui.presentation.mealEdit.MealProductInfo" />
+            app:argType="com.mohylov.diet.ui.presentation.mealEdit.entities.MealProductInfo" />
     </fragment>
 </navigation>

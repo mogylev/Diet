@@ -4,8 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.mohylov.diet.ui.domain.completeMealProduct.CompleteMealProductInteractor
+import com.mohylov.diet.ui.domain.completeMealProduct.entities.CompleteMealProductItem
 import com.mohylov.diet.ui.domain.mealProductsManagement.MealProductsManagementInteractor
 import com.mohylov.diet.ui.presentation.base.BaseViewModel
+import com.mohylov.diet.ui.presentation.base.NavigationActions
+import com.mohylov.diet.ui.presentation.mealEdit.entities.MealProductInfo
+import com.mohylov.diet.ui.presentation.mealEdit.entities.CompleteMealProductModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -22,19 +26,24 @@ class MealEditViewModel(
         updateData()
     }
 
+
+    fun onSaveClicked(amount: Int) {
+        viewModelScope.launch {
+            mealProductsManagementInteractor.updateMealProduct(
+                mealProductId = mealProductInfo.id,
+                amount = amount
+            )
+            navigate(NavigationActions.PopBackStack)
+        }
+    }
+
     private fun updateData() {
         viewModelScope.launch {
             val completeMealProductItem =
                 completeMealProductInteractor.getCompleteMealProduct(mealProductId = mealProductInfo.id)
             updateState(
                 getViewState().copy(
-                    productValue = completeMealProductItem.amount,
-                    productNutrientsInfo = ProductNutrientsInfo(
-                        proteins = completeMealProductItem.productItem.protein,
-                        fats = completeMealProductItem.productItem.fats,
-                        carbohydrates = completeMealProductItem.productItem.carbohydrates,
-                        calories = completeMealProductItem.productItem.calories
-                    )
+                    completeMealProductModel = completeMealProductItem.toCompleteMealProductModel()
                 )
             )
         }
@@ -69,7 +78,6 @@ class MealEditViewModel(
             isLoading = false,
             productName = mealProductInfo.productName,
             productValue = 0,
-            productNutrientsInfo = ProductNutrientsInfo.empty()
         )
     }
 
@@ -83,8 +91,18 @@ data class MealEditViewState(
     val isLoading: Boolean,
     val productName: String,
     val productValue: Int,
-    val productNutrientsInfo: ProductNutrientsInfo)
+    val completeMealProductModel: CompleteMealProductModel? = null
+)
 
 sealed class MealEditViewActions {
 
+}
+
+fun CompleteMealProductItem.toCompleteMealProductModel(): CompleteMealProductModel {
+    return CompleteMealProductModel(
+        amount = amount,
+        mealType = type,
+        productItem = productItem,
+        date = date
+    )
 }

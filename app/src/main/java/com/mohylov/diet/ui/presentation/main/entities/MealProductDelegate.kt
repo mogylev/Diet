@@ -24,7 +24,7 @@ class MealProductDelegateAdapterItem(
 
 
     override fun content(): Any {
-        return name
+        return protein + fats + carbohydrates + calories
     }
 
 }

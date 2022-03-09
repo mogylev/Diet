@@ -5,6 +5,9 @@ import com.mohylov.diet.ui.data.db.AppDatabase
 import com.mohylov.diet.ui.data.mealProducts.MealProductDao
 import com.mohylov.diet.ui.data.mealProducts.MealProductsRepository
 import com.mohylov.diet.ui.data.mealProducts.MealProductsRepositoryImpl
+import com.mohylov.diet.ui.data.product.ProductDao
+import com.mohylov.diet.ui.data.product.ProductsRepository
+import com.mohylov.diet.ui.data.product.ProductsRepositoryImpl
 import com.mohylov.diet.ui.di.ViewModelKey
 import com.mohylov.diet.ui.domain.mealProducts.MealProductsInteractor
 import com.mohylov.diet.ui.domain.mealProducts.MealProductsInteractorImpl
@@ -28,7 +31,11 @@ interface MainScreenModule {
     fun provideMealProductsInteractor(mealProductsInteractorImpl: MealProductsInteractorImpl): MealProductsInteractor
 
     @Binds
-    fun provideMealProductsManagerInteractor(mealProductsManagerImpl: MealProductsManagementImpl): MealProductsManagementInteractor
+    fun productsRepository(productsRepositoryImpl: ProductsRepositoryImpl) : ProductsRepository
+
+    @Binds
+    fun provideMealProductsManagerInteractor(
+        mealProductsManagerImpl: MealProductsManagementImpl): MealProductsManagementInteractor
 
     @Binds
     fun bindMealProductsCalculatorInteractor(
@@ -44,6 +51,11 @@ interface MainScreenModule {
         @Provides
         fun provideMealProductsDao(appDatabase: AppDatabase): MealProductDao {
             return appDatabase.mealProductDao()
+        }
+
+        @Provides
+        fun provideProductsDao(appDatabase: AppDatabase): ProductDao {
+            return appDatabase.productsDao()
         }
     }
 

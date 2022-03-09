@@ -9,7 +9,7 @@ import javax.inject.Inject
 class MealProductsInteractorImpl @Inject constructor(private val mealProductsRepository: MealProductsRepository) :
     MealProductsInteractor {
 
-    override fun getMealProductsByDate(date: LocalDate): Flow<List<MealProductItem>> {
+    override suspend fun getMealProductsByDate(date: LocalDate): List<MealProductItem> {
         return mealProductsRepository.getMealProductsByDate(date = date)
     }
 

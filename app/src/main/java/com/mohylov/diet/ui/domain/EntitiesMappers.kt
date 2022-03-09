@@ -45,8 +45,9 @@ fun MealProductEntity.toMealProductItem(): MealProductItem {
 
 fun MealProductItem.toMealProductEntity(): MealProductEntity {
     return MealProductEntity(
-        name = name,
+        id = id,
         productId = productId,
+        name = name,
         protein = protein,
         fats = fats,
         carbohydrates = carbohydrates,
