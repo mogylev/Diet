@@ -2,7 +2,6 @@ package com.mohylov.diet.ui.presentation.main
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.util.SparseArray
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -22,19 +21,15 @@ import com.mohylov.diet.ui.domain.mealProductsCalculator.entities.NutrtientResul
 import com.mohylov.diet.ui.presentation.base.NavigationActions
 import com.mohylov.diet.ui.presentation.base.scopedComponent
 import com.mohylov.diet.ui.presentation.base.viewBinding
-import com.mohylov.diet.ui.presentation.main.adapters.MealConcatAdapter
-import com.mohylov.diet.ui.presentation.main.adapters.ProductsAdapter
-import com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapter
 import com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapterItem
-import com.mohylov.diet.ui.presentation.main.adapters.entities.MealHeaderAdapterDelegate
-import com.mohylov.diet.ui.presentation.main.adapters.entities.MealProductDelegateAdapter
+import com.mohylov.diet.ui.presentation.main.entities.MealHeaderAdapterDelegate
+import com.mohylov.diet.ui.presentation.main.entities.MealProductDelegateAdapter
 import com.mohylov.diet.ui.presentation.utils.showDialog
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
-import kotlin.math.log
 
 class MainScreenFragment : Fragment(R.layout.fragment_main) {
 
@@ -53,7 +48,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main) {
 
     private val binding: FragmentMainBinding by viewBinding(FragmentMainBinding::bind)
 
-    private lateinit var mealConcatAdapter: MealConcatAdapter
+    private lateinit var baseDelegateAdapter: com.mohylov.diet.ui.presentation.main.adapters.BaseDelegateAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -74,7 +69,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main) {
 
     private fun initObservers() {
         viewModel.stateData.observe(viewLifecycleOwner) { state ->
-            mealConcatAdapter.submitList(state.mealsItems)
+            baseDelegateAdapter.submitList(state.mealsItems)
             handleNutrientsResult(state.nutrientsResult)
             binding.topBar.root.title = dateFormatter.format(state.date)
         }
@@ -134,18 +129,22 @@ class MainScreenFragment : Fragment(R.layout.fragment_main) {
             longClickFlow.onEach {
                 viewModel.onMealProductLongClick(it)
             }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+            clickFlow.onEach {
+                viewModel.onMealProductClick(it)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
         }
-        val spars = SparseArray<DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>>()
+        val spars = SparseArray<com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>>()
         spars.put(
             0,
-            mealHeaderAdapter as DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>
+            mealHeaderAdapter as com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>
         )
         spars.put(
             1,
-            mealProductsAdapter as DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>
+            mealProductsAdapter as com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>
         )
-        mealConcatAdapter = MealConcatAdapter(spars)
-        binding.mealsRecycler.adapter = mealConcatAdapter
+        baseDelegateAdapter = com.mohylov.diet.ui.presentation.main.adapters.BaseDelegateAdapter(spars)
+        binding.mealsRecycler.adapter = baseDelegateAdapter
     }
 
 }

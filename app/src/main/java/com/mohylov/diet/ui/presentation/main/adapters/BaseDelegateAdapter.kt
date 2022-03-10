@@ -30,7 +30,7 @@ val callback = object : DiffUtil.ItemCallback<DelegateAdapterItem>() {
 
 }
 
-class MealConcatAdapter(
+class BaseDelegateAdapter(
     private val delegates: SparseArray<DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>>
 ) : ListAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>(callback) {
 

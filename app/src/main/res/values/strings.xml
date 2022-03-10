@@ -20,4 +20,9 @@
     <string name="carbohydrates">угл: %.1f г</string>
     <string name="total_text">Всего</string>
 
+    //edit screen
+    <string name="defaultValuePer100gTitle">На 100 г/мл:</string>
+    <string name="valueTitle">Масса(г):</string>
+    <string name="save_text">Сохранить</string>
+
 </resources>

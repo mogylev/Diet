@@ -1,5 +1,6 @@
 package com.mohylov.diet.ui.presentation.main
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.mohylov.diet.ui.domain.mealProducts.MealProductsInteractor
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealProductItem
@@ -9,9 +10,10 @@ import com.mohylov.diet.ui.domain.mealProductsManagement.MealProductsManagementI
 import com.mohylov.diet.ui.presentation.base.BaseViewModel
 import com.mohylov.diet.ui.presentation.base.NavigationActions
 import com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapterItem
-import com.mohylov.diet.ui.presentation.main.adapters.entities.MealHeaderDelegateItem
-import com.mohylov.diet.ui.presentation.main.adapters.entities.MealItem
-import com.mohylov.diet.ui.presentation.main.adapters.entities.MealProductDelegateAdapterItem
+import com.mohylov.diet.ui.presentation.main.entities.MealHeaderDelegateItem
+import com.mohylov.diet.ui.presentation.main.entities.MealItem
+import com.mohylov.diet.ui.presentation.main.entities.MealProductDelegateAdapterItem
+import com.mohylov.diet.ui.presentation.mealEdit.entities.MealProductInfo
 import com.mohylov.diet.ui.presentation.search.MealInfo
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -33,16 +35,19 @@ class MainViewModel @Inject constructor(
     private val mealItems = MealItem.emptyMeals()
 
     fun updateData() {
-        mealProductsInteractor.getMealProductsByDate(getViewState().date).onEach { mealProducts ->
-            val nutrientResult = mealProductsCalculatorInteractor.calculateNutrients(mealProducts)
-            val mealsDelegateItems = buildMealList(mealProducts)
-            updateState(
-                getViewState().copy(
-                    mealsItems = mealsDelegateItems,
-                    nutrientsResult = nutrientResult
+        viewModelScope.launch {
+            mealProductsInteractor.getMealProductsByDate(getViewState().date).let { mealProducts ->
+                val nutrientResult =
+                    mealProductsCalculatorInteractor.calculateNutrients(mealProducts)
+                val mealsDelegateItems = buildMealList(mealProducts)
+                updateState(
+                    getViewState().copy(
+                        mealsItems = mealsDelegateItems,
+                        nutrientsResult = nutrientResult
+                    )
                 )
-            )
-        }.launchIn(viewModelScope)
+            }
+        }
     }
 
     fun onMealHeaderClick(mealHeader: MealHeaderDelegateItem) {
@@ -64,6 +69,20 @@ class MainViewModel @Inject constructor(
             MainScreenViewActions.RemoveProductRequestAction(product)
         )
     }
+
+    fun onMealProductClick(product: MealProductDelegateAdapterItem) {
+        navigate(
+            NavigationActions.NavigationAction(
+                MainScreenFragmentDirections.actionMainScreenFragmentToMealEditFragment(
+                    mealProductInfo = MealProductInfo(
+                        id = product.id,
+                        productName = product.name,
+                    )
+                )
+            )
+        )
+    }
+
 
     fun onRemoveProductConfirm(product: MealProductDelegateAdapterItem) {
         viewModelScope.launch {

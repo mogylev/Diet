@@ -1,4 +1,4 @@
-package com.mohylov.diet.ui.presentation.main.adapters.entities
+package com.mohylov.diet.ui.presentation.main.entities
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -24,7 +24,7 @@ class MealProductDelegateAdapterItem(
 
 
     override fun content(): Any {
-        return name
+        return protein + fats + carbohydrates + calories
     }
 
 }
@@ -38,7 +38,13 @@ class MealProductDelegateAdapter :
         extraBufferCapacity = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
+    private val _clickFlow = MutableSharedFlow<MealProductDelegateAdapterItem>(
+        extraBufferCapacity = 1,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    )
+
     val longClickFlow: Flow<MealProductDelegateAdapterItem> = _longClickFlow
+    val clickFlow: Flow<MealProductDelegateAdapterItem> = _clickFlow
 
     inner class MealProductViewHolder(
         val binding: MealProductItemBinding,
@@ -72,8 +78,13 @@ class MealProductDelegateAdapter :
         return MealProductViewHolder(
             MealProductItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         ).apply {
-            binding.rootContainer.setOnLongClickListener {
-                _longClickFlow.tryEmit(productItem ?: return@setOnLongClickListener false)
+            binding.rootContainer.apply {
+                setOnLongClickListener {
+                    _longClickFlow.tryEmit(productItem ?: return@setOnLongClickListener false)
+                }
+                setOnClickListener {
+                    _clickFlow.tryEmit(productItem ?: return@setOnClickListener)
+                }
             }
         }
     }

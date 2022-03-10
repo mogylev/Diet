@@ -18,18 +18,30 @@ class MealProductsRepositoryImpl @Inject constructor(private val mealProductDao:
         TODO("Not yet implemented")
     }
 
-    override fun getMealProductsByDate(date: LocalDate): Flow<List<MealProductItem>> {
-        return flow {
-            emit(
-                mealProductDao.getMealProductsByDate(date = date.toString()).map {
-                    it.toMealProductItem()
-                }
-            )
-        }.flowOn(Dispatchers.IO)
+    override suspend fun getMealProductsByDate(date: LocalDate): List<MealProductItem> {
+        return withContext(Dispatchers.IO) {
+            mealProductDao.getMealProductsByDate(date = date.toString()).map {
+                it.toMealProductItem()
+            }
+        }
+    }
+
+    override suspend fun getMealProductById(mealProductId: Long): MealProductItem {
+       return withContext(Dispatchers.IO){
+            mealProductDao.getMealProductById(mealProductId).toMealProductItem()
+        }
     }
 
     override suspend fun insertMealProduct(mealProductItem: MealProductItem) {
-        mealProductDao.insertMealProduct(mealProductItem.toMealProductEntity())
+        withContext(Dispatchers.IO){
+            mealProductDao.insertMealProduct(mealProductItem.toMealProductEntity())
+        }
+    }
+
+    override suspend fun updateMealProduct(mealProductItem: MealProductItem) {
+        withContext(Dispatchers.IO) {
+            mealProductDao.updateMealProduct(mealProductItem.toMealProductEntity())
+        }
     }
 
     override suspend fun removeMealProduct(productId: Long) {

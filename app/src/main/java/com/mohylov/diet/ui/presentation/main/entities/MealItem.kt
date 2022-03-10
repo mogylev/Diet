@@ -1,4 +1,4 @@
-package com.mohylov.diet.ui.presentation.main.adapters.entities
+package com.mohylov.diet.ui.presentation.main.entities
 
 import com.mohylov.diet.R
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealType

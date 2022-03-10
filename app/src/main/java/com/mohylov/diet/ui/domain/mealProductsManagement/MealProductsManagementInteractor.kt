@@ -13,5 +13,7 @@ interface MealProductsManagementInteractor {
         amount: Int
     )
 
+    suspend fun updateMealProduct(mealProductId: Long, amount: Int)
+
     suspend fun removeMealProduct(productId: Long)
 }

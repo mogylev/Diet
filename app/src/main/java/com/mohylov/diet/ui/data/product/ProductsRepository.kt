@@ -8,4 +8,6 @@ interface ProductsRepository {
     fun getFoods(): Flow<List<ProductItem>>
 
     fun getFoodsBySearchQuery(searchFilter: String): Flow<List<ProductItem>>
+
+    suspend fun getProductById(productId: Long): ProductItem
 }

@@ -6,8 +6,10 @@ import java.time.LocalDate
 
 interface MealProductsInteractor {
 
-    fun getMealProductsByDate(date: LocalDate): Flow<List<MealProductItem>>
+   suspend fun getMealProductsByDate(date: LocalDate): List<MealProductItem>
 
     fun getMealProducts(): Flow<List<MealProductItem>>
+
+    suspend fun getMealProductById(mealProductId: Long): MealProductItem
 
 }

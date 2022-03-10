@@ -15,4 +15,8 @@ class ProductsInteractorImpl @Inject constructor(private val productsRepository:
     override fun getProductsBySearchFilter(searchFilter: String): Flow<List<ProductItem>> {
         return productsRepository.getFoodsBySearchQuery(searchFilter)
     }
+
+    override suspend fun getProductById(productId: Long): ProductItem {
+        return productsRepository.getProductById(productId)
+    }
 }

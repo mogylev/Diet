@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ProductsRepositoryImpl @Inject constructor(private val productDao: ProductDao) :
@@ -22,5 +23,11 @@ class ProductsRepositoryImpl @Inject constructor(private val productDao: Product
         return flow {
             emit(productDao.getFilteredProducts(searchFilter).map { it.toProductItem() })
         }.flowOn(Dispatchers.IO)
+    }
+
+    override suspend fun getProductById(productId: Long): ProductItem {
+        return withContext(Dispatchers.IO) {
+            productDao.getProductById(productId).toProductItem()
+        }
     }
 }
