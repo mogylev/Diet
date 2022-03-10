@@ -1,8 +1,8 @@
 package com.mohylov.diet.ui.data.mealProducts
 
+import com.mohylov.diet.ui.data.mealProducts.mappers.toMealProductEntity
+import com.mohylov.diet.ui.data.mealProducts.mappers.toMealProductItem
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealProductItem
-import com.mohylov.diet.ui.domain.toMealProductEntity
-import com.mohylov.diet.ui.domain.toMealProductItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
