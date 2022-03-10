@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.mohylov.diet.ui.domain.mealProductsManagement.MealProductsManagementInteractor
 import com.mohylov.diet.ui.domain.products.ProductsInteractor
-import com.mohylov.diet.ui.domain.toProductItem
-import com.mohylov.diet.ui.domain.toProductViewItem
 import com.mohylov.diet.ui.presentation.base.BaseViewModel
 import com.mohylov.diet.ui.presentation.base.NavigationActions
 import com.mohylov.diet.ui.presentation.main.adapters.ProductViewItem
+import com.mohylov.diet.ui.presentation.mappers.toProductItem
+import com.mohylov.diet.ui.presentation.mappers.toProductViewItem
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject

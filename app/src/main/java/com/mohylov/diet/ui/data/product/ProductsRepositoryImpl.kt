@@ -1,12 +1,11 @@
 package com.mohylov.diet.ui.data.product
 
+import com.mohylov.diet.ui.data.product.mappers.toProductItem
 import com.mohylov.diet.ui.domain.products.entities.ProductItem
-import com.mohylov.diet.ui.domain.toProductItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
