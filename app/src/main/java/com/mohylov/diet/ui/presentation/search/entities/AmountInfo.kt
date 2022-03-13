@@ -1,4 +1,4 @@
-package com.mohylov.diet.ui.presentation.search
+package com.mohylov.diet.ui.presentation.search.entities
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

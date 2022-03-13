@@ -22,7 +22,7 @@ class MealProductsManagementImpl @Inject constructor(
     ) {
         mealProductsRepository.insertMealProduct(
             MealProductItem(
-                name = productItem.name,
+                name = productItem.productName,
                 productId = productItem.id,
                 protein = (productItem.protein / 100f) * amount,
                 fats = (productItem.fats / 100f) * amount,

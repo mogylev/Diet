@@ -1,6 +1,5 @@
 package com.mohylov.diet.ui.presentation.main
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.mohylov.diet.ui.domain.mealProducts.MealProductsInteractor
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealProductItem
@@ -14,9 +13,7 @@ import com.mohylov.diet.ui.presentation.main.entities.MealHeaderDelegateItem
 import com.mohylov.diet.ui.presentation.main.entities.MealItem
 import com.mohylov.diet.ui.presentation.main.entities.MealProductDelegateAdapterItem
 import com.mohylov.diet.ui.presentation.mealEdit.entities.MealProductInfo
-import com.mohylov.diet.ui.presentation.search.MealInfo
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import com.mohylov.diet.ui.presentation.search.entities.MealInfo
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import javax.inject.Inject

@@ -22,4 +22,7 @@ interface ProductDao {
     @Insert(onConflict = REPLACE)
     fun insertAllFoods(foodsList: List<ProductEntity>)
 
+    @Insert
+    fun insertProduct(product: ProductEntity)
+
 }

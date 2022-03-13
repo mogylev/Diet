@@ -7,7 +7,18 @@ import com.mohylov.diet.ui.domain.products.entities.ProductItem
 fun ProductEntity.toProductItem(): ProductItem {
     return ProductItem(
         id = id,
-        name = name,
+        productName = name,
+        protein = protein,
+        fats = fats,
+        carbohydrates = carbohydrates,
+        calories = calories
+    )
+}
+
+fun ProductItem.toProductEntity(): ProductEntity {
+    return ProductEntity(
+        id = id,
+        name = productName,
         protein = protein,
         fats = fats,
         carbohydrates = carbohydrates,

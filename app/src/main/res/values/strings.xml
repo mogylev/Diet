@@ -20,9 +20,23 @@
     <string name="carbohydrates">угл: %.1f г</string>
     <string name="total_text">Всего</string>
 
+    //search screen
+    <string name="search_product_text">Поиск по продуктам</string>
+    <string name="amount_text">Количество</string>
+
     //edit screen
     <string name="defaultValuePer100gTitle">На 100 г/мл:</string>
     <string name="valueTitle">Масса(г):</string>
     <string name="save_text">Сохранить</string>
+
+    //product addition screen
+    <string name="product_title">Продукт</string>
+    <string name="product_name">Наименование</string>
+    <string name="calories_hint_text">Энергетическая ценность (ккал)</string>
+    <string name="proteins_hint_text">Белки (г)</string>
+    <string name="fats_hint_text">Жиры (г)</string>
+    <string name="carbohydrates_hint_text">Углеводы (г)</string>
+    <string name="serach_menu_add_product_title">Добавить продукт</string>
+    <string name="addition_text">Добавить</string>
 
 </resources>

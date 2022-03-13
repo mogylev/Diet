@@ -9,6 +9,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mohylov.diet.R
 import com.mohylov.diet.databinding.MealAmountSheetLayoutBinding
 import com.mohylov.diet.ui.presentation.base.viewBinding
+import com.mohylov.diet.ui.presentation.search.entities.AmountInfo
 
 class AmountBottomSheetDialog : BottomSheetDialogFragment() {
 

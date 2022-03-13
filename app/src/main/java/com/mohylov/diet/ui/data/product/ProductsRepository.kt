@@ -10,4 +10,6 @@ interface ProductsRepository {
     fun getFoodsBySearchQuery(searchFilter: String): Flow<List<ProductItem>>
 
     suspend fun getProductById(productId: Long): ProductItem
+
+    suspend fun createProduct(product: ProductItem)
 }

@@ -19,9 +19,12 @@
         android:id="@+id/searchFragment"
         android:name="com.mohylov.diet.ui.presentation.search.SearchFragment"
         android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_productAdditionFragment"
+            app:destination="@id/productAdditionFragment" />
         <argument
             android:name="mealInfo"
-            app:argType="com.mohylov.diet.ui.presentation.search.MealInfo" />
+            app:argType="com.mohylov.diet.ui.presentation.search.entities.MealInfo" />
     </fragment>
     <fragment
         android:id="@+id/mealEditFragment"
@@ -31,4 +34,8 @@
             android:name="mealProductInfo"
             app:argType="com.mohylov.diet.ui.presentation.mealEdit.entities.MealProductInfo" />
     </fragment>
+    <fragment
+        android:id="@+id/productAdditionFragment"
+        android:name="com.mohylov.diet.ui.presentation.productAddition.ProductAdditionFragment"
+        android:label="ProductAdditionFragment" />
 </navigation>

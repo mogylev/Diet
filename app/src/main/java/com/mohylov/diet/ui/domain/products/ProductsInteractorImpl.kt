@@ -19,4 +19,22 @@ class ProductsInteractorImpl @Inject constructor(private val productsRepository:
     override suspend fun getProductById(productId: Long): ProductItem {
         return productsRepository.getProductById(productId)
     }
+
+    override suspend fun createProduct(
+        productName: String,
+        caloriesAmount: Int,
+        proteinsAmount: Float,
+        fatsAmount: Float,
+        carbohydratesAmount: Float
+    ) {
+        productsRepository.createProduct(
+            ProductItem(
+                productName = productName,
+                calories = caloriesAmount,
+                protein = proteinsAmount,
+                fats = fatsAmount,
+                carbohydrates = carbohydratesAmount
+            )
+        )
+    }
 }

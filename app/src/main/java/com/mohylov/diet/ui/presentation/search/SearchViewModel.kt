@@ -10,6 +10,8 @@ import com.mohylov.diet.ui.presentation.base.NavigationActions
 import com.mohylov.diet.ui.presentation.main.adapters.ProductViewItem
 import com.mohylov.diet.ui.presentation.mappers.toProductItem
 import com.mohylov.diet.ui.presentation.mappers.toProductViewItem
+import com.mohylov.diet.ui.presentation.search.entities.AmountInfo
+import com.mohylov.diet.ui.presentation.search.entities.MealInfo
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -61,6 +63,15 @@ class SearchViewModel(
         }
     }
 
+    fun onAddictProductMenuClick() {
+        navigate(
+            NavigationActions.NavigationAction(
+                SearchFragmentDirections.actionSearchFragmentToProductAdditionFragment()
+            )
+        )
+    }
+
+
     private fun getViewState() = stateData.value as SearchViewState
 
     private fun initViewState() {
@@ -70,6 +81,10 @@ class SearchViewModel(
                 filteredProducts = emptyList()
             )
         )
+    }
+
+    fun onBackPressed() {
+        navigate(NavigationActions.PopBackStack)
     }
 
     class Factory @AssistedInject constructor(
