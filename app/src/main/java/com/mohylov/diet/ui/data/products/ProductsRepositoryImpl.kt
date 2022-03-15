@@ -1,9 +1,8 @@
-package com.mohylov.diet.ui.data.product
+package com.mohylov.diet.ui.data.products
 
-import com.mohylov.diet.ui.data.product.mappers.toProductEntity
-import com.mohylov.diet.ui.data.product.mappers.toProductItem
+import com.mohylov.diet.ui.data.products.mappers.toProductEntity
+import com.mohylov.diet.ui.data.products.mappers.toProductItem
 import com.mohylov.diet.ui.domain.products.entities.ProductItem
-import com.mohylov.diet.ui.presentation.mappers.toProductViewItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,13 +13,7 @@ import javax.inject.Inject
 class ProductsRepositoryImpl @Inject constructor(private val productDao: ProductDao) :
     ProductsRepository {
 
-    override fun getFoods(): Flow<List<ProductItem>> {
-        return flow {
-            emit(productDao.getAll().map { it.toProductItem() })
-        }.flowOn(Dispatchers.IO)
-    }
-
-    override fun getFoodsBySearchQuery(searchFilter: String): Flow<List<ProductItem>> {
+    override fun getProductsBySearchQuery(searchFilter: String): Flow<List<ProductItem>> {
         return flow {
             emit(productDao.getFilteredProducts(searchFilter).map { it.toProductItem() })
         }.flowOn(Dispatchers.IO)

@@ -2,8 +2,8 @@ package com.mohylov.diet.ui.di.components.productAddition
 
 import androidx.lifecycle.ViewModel
 import com.mohylov.diet.ui.data.db.AppDatabase
-import com.mohylov.diet.ui.data.product.ProductsRepository
-import com.mohylov.diet.ui.data.product.ProductsRepositoryImpl
+import com.mohylov.diet.ui.data.products.ProductsRepository
+import com.mohylov.diet.ui.data.products.ProductsRepositoryImpl
 import com.mohylov.diet.ui.di.ViewModelKey
 import com.mohylov.diet.ui.domain.products.ProductsInteractor
 import com.mohylov.diet.ui.domain.products.ProductsInteractorImpl

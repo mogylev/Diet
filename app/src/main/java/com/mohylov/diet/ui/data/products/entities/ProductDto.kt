@@ -1,4 +1,4 @@
-package com.mohylov.diet.ui.data.product.entities
+package com.mohylov.diet.ui.data.products.entities
 
 import com.google.gson.annotations.SerializedName
 

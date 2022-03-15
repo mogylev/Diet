@@ -6,6 +6,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.textfield.TextInputLayout
 import com.mohylov.diet.R
 import com.mohylov.diet.databinding.FragmentProductAdditionBinding
 import com.mohylov.diet.ui.appComponent
@@ -70,5 +71,33 @@ class ProductAdditionFragment : Fragment(R.layout.fragment_product_addition) {
         viewModel.navigationData.observe(viewLifecycleOwner) {
             navigate(it)
         }
+        viewModel.stateData.observe(viewLifecycleOwner){
+            handleState(it)
+        }
     }
+
+    private fun handleState(viewState: ProductAdditionViewState) {
+        binding.productNameILayout.handleValidationState(viewState.productNameProductValidationState)
+        binding.caloriesAmountILayout.handleValidationState(viewState.caloriesProductValidationState)
+        binding.proteinsAmountILayout.handleValidationState(viewState.proteinsProductValidationState)
+        binding.fatsAmountILayout.handleValidationState(viewState.fatsProductValidationState)
+        binding.carbohydratesAmountILayout.handleValidationState(viewState.carbohydratesProductValidationState)
+
+    }
+
+
+    private fun TextInputLayout.handleValidationState(productValidationState: ProductValidationState) {
+        error = when (productValidationState) {
+            is ProductValidationState.EmptyField -> {
+                resources.getString(R.string.error_empty_field)
+            }
+            is ProductValidationState.Invalid -> {
+                resources.getString(productValidationState.errorResId)
+            }
+            else -> {
+                null
+            }
+        }
+    }
+
 }

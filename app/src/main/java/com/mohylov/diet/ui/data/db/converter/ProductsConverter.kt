@@ -3,7 +3,7 @@ package com.mohylov.diet.ui.data.db.converter
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.mohylov.diet.ui.data.product.entities.ProductEntity
+import com.mohylov.diet.ui.data.products.entities.ProductEntity
 
 class ProductsConverter {
 

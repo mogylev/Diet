@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.mohylov.diet.ui.data.db.AppDatabase
-import com.mohylov.diet.ui.data.product.ProductDao
+import com.mohylov.diet.ui.data.products.ProductDao
 import dagger.Module
 import dagger.Provides
 

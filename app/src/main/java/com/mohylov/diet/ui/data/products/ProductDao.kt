@@ -1,11 +1,10 @@
-package com.mohylov.diet.ui.data.product
+package com.mohylov.diet.ui.data.products
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import com.mohylov.diet.ui.data.product.entities.ProductEntity
-import kotlinx.coroutines.flow.Flow
+import com.mohylov.diet.ui.data.products.entities.ProductEntity
 
 @Dao
 interface ProductDao {

@@ -5,9 +5,9 @@ import com.mohylov.diet.ui.data.db.AppDatabase
 import com.mohylov.diet.ui.data.mealProducts.MealProductDao
 import com.mohylov.diet.ui.data.mealProducts.MealProductsRepository
 import com.mohylov.diet.ui.data.mealProducts.MealProductsRepositoryImpl
-import com.mohylov.diet.ui.data.product.ProductDao
-import com.mohylov.diet.ui.data.product.ProductsRepository
-import com.mohylov.diet.ui.data.product.ProductsRepositoryImpl
+import com.mohylov.diet.ui.data.products.ProductDao
+import com.mohylov.diet.ui.data.products.ProductsRepository
+import com.mohylov.diet.ui.data.products.ProductsRepositoryImpl
 import com.mohylov.diet.ui.di.ViewModelKey
 import com.mohylov.diet.ui.domain.mealProducts.MealProductsInteractor
 import com.mohylov.diet.ui.domain.mealProducts.MealProductsInteractorImpl
