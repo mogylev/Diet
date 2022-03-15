@@ -36,7 +36,7 @@ abstract class BaseViewModel<State : Any, Action : Any> : ViewModel() {
     ) {
         viewModelScope.launch {
             try {
-                work
+                work.invoke(this)
             } catch (e: Throwable) {
                 onWorkError(e)
             }
