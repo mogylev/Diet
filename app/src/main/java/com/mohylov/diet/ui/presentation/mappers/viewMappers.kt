@@ -11,7 +11,7 @@ fun List<MealProductItem>.toProductViewItems(): List<ProductViewItem> {
 fun ProductItem.toProductViewItem(): ProductViewItem {
     return ProductViewItem(
         id = id,
-        name = name,
+        name = productName,
         protein = protein,
         fats = fats,
         carbohydrates = carbohydrates,
@@ -19,16 +19,16 @@ fun ProductItem.toProductViewItem(): ProductViewItem {
     )
 }
 
-fun ProductViewItem.toProductItem(): ProductItem {
-    return ProductItem(
-        id = id,
-        name = name,
-        protein = protein,
-        fats = fats,
-        carbohydrates = carbohydrates,
-        calories = calories
-    )
-}
+//fun ProductViewItem.toProductItem(): ProductItem {
+//    return ProductItem(
+//        id = id,
+//        productName = name,
+//        protein = protein,
+//        fats = fats,
+//        carbohydrates = carbohydrates,
+//        calories = calories
+//    )
+//}
 
 fun MealProductItem.toMealProductViewItem(): ProductViewItem {
     return ProductViewItem(

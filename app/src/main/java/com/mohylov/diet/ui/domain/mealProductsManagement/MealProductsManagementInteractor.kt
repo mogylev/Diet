@@ -8,7 +8,7 @@ interface MealProductsManagementInteractor {
 
     suspend fun insertMealProduct(
         mealType: MealType,
-        productItem: ProductItem,
+        productId: Long,
         date: LocalDate,
         amount: Int
     )

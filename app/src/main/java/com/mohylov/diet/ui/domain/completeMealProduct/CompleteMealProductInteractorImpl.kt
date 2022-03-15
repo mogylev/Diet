@@ -1,7 +1,7 @@
 package com.mohylov.diet.ui.domain.completeMealProduct
 
 import com.mohylov.diet.ui.data.mealProducts.MealProductsRepository
-import com.mohylov.diet.ui.data.product.ProductsRepository
+import com.mohylov.diet.ui.data.products.ProductsRepository
 import com.mohylov.diet.ui.domain.completeMealProduct.entities.CompleteMealProductItem
 import javax.inject.Inject
 

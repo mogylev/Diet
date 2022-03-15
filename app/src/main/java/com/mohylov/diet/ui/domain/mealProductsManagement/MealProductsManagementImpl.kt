@@ -1,7 +1,7 @@
 package com.mohylov.diet.ui.domain.mealProductsManagement
 
 import com.mohylov.diet.ui.data.mealProducts.MealProductsRepository
-import com.mohylov.diet.ui.data.product.ProductsRepository
+import com.mohylov.diet.ui.data.products.ProductsRepository
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealProductItem
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealType
 import com.mohylov.diet.ui.domain.products.entities.ProductItem
@@ -16,13 +16,14 @@ class MealProductsManagementImpl @Inject constructor(
 
     override suspend fun insertMealProduct(
         mealType: MealType,
-        productItem: ProductItem,
+        productId: Long,
         date: LocalDate,
         amount: Int
     ) {
+        val productItem = productsRepository.getProductById(productId)
         mealProductsRepository.insertMealProduct(
             MealProductItem(
-                name = productItem.name,
+                name = productItem.productName,
                 productId = productItem.id,
                 protein = (productItem.protein / 100f) * amount,
                 fats = (productItem.fats / 100f) * amount,

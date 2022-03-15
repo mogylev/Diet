@@ -1,8 +1,8 @@
 package com.mohylov.diet.ui.di
 
 import android.content.Context
+import com.mohylov.diet.ui.data.Persistence
 import com.mohylov.diet.ui.data.db.AppDatabase
-import com.mohylov.diet.ui.data.product.ProductDao
 import dagger.BindsInstance
 import dagger.Component
 import kotlinx.coroutines.CoroutineScope
@@ -13,6 +13,8 @@ import javax.inject.Singleton
 interface AppComponent {
 
     val appDatabase: AppDatabase
+
+    val persistence: Persistence
 
     val appCoroutineScope: CoroutineScope
 

@@ -2,8 +2,8 @@ package com.mohylov.diet.ui.presentation.search
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import android.view.View
+import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -19,6 +19,7 @@ import com.mohylov.diet.ui.presentation.base.NavigationActions
 import com.mohylov.diet.ui.presentation.base.scopedComponent
 import com.mohylov.diet.ui.presentation.base.viewBinding
 import com.mohylov.diet.ui.presentation.main.adapters.ProductsAdapter
+import com.mohylov.diet.ui.presentation.search.entities.AmountInfo
 import com.mohylov.diet.ui.presentation.utils.onTextChaged
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.filter
@@ -52,8 +53,21 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
         initClickProductListener()
-        binding.topBar.root.title = getString(args.mealInfo.mealNameResId)
-        binding.topBar.root.setBackgroundColor(requireContext().getColor(R.color.primaryColor))
+        binding.topBar.root.apply {
+            title = getString(args.mealInfo.mealNameResId)
+            setBackgroundColor(requireContext().getColor(R.color.primaryColor))
+            inflateMenu(R.menu.search_menu)
+            setOnMenuItemClickListener {
+                viewModel.onAddictProductMenuClick()
+                true
+            }
+            navigationIcon =
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_arrow_back_24)
+            setNavigationOnClickListener {
+                viewModel.onBackPressed()
+            }
+        }
+
         binding.searchRecycler.adapter = searchAdapter
         binding.searchInputLayout.editText?.let { editText ->
             editText.onTextChaged()
