@@ -18,6 +18,7 @@ import com.mohylov.diet.ui.di.BaseViewModelFactory
 import com.mohylov.diet.ui.di.components.mainComponent.DaggerMainScreenComponent
 import com.mohylov.diet.ui.di.components.mainComponent.MainScreenComponent
 import com.mohylov.diet.ui.domain.mealProductsCalculator.entities.NutrtientResult
+import com.mohylov.diet.ui.presentation.base.BaseFragment
 import com.mohylov.diet.ui.presentation.base.NavigationActions
 import com.mohylov.diet.ui.presentation.base.scopedComponent
 import com.mohylov.diet.ui.presentation.base.viewBinding
@@ -31,9 +32,10 @@ import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
-class MainScreenFragment : Fragment(R.layout.fragment_main) {
-
-    private val dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
+class MainScreenFragment : BaseFragment<MainScreenViewState,
+        MainScreenViewActions,
+        MainViewModel,
+        FragmentMainBinding>(R.layout.fragment_main) {
 
     @Inject
     lateinit var factory: BaseViewModelFactory
@@ -42,11 +44,9 @@ class MainScreenFragment : Fragment(R.layout.fragment_main) {
         DaggerMainScreenComponent.builder().deps(requireContext().appComponent()).build()
     }
 
-    private val viewModel: MainViewModel by viewModels {
-        factory
-    }
+    override val viewModel: MainViewModel by viewModels { factory }
 
-    private val binding: FragmentMainBinding by viewBinding(FragmentMainBinding::bind)
+    override val binding: FragmentMainBinding by viewBinding(FragmentMainBinding::bind)
 
     private lateinit var baseDelegateAdapter: com.mohylov.diet.ui.presentation.main.adapters.BaseDelegateAdapter
 
@@ -64,23 +64,25 @@ class MainScreenFragment : Fragment(R.layout.fragment_main) {
             }
         }
         initializeRecyclers()
-        initObservers()
     }
 
-    private fun initObservers() {
-        viewModel.stateData.observe(viewLifecycleOwner) { state ->
-            baseDelegateAdapter.submitList(state.mealsItems)
-            handleNutrientsResult(state.nutrientsResult)
-            binding.topBar.root.title = dateFormatter.format(state.date)
-        }
-        viewModel.navigationData.observe(viewLifecycleOwner) {
-            when (it) {
-                is NavigationActions.NavigationAction -> findNavController().navigate(it.direction)
-                is NavigationActions.PopBackStack -> findNavController().popBackStack()
+    override fun viewStateChanged(state: MainScreenViewState) {
+        baseDelegateAdapter.submitList(state.mealsItems)
+        handleNutrientsResult(state.nutrientsResult)
+        binding.topBar.root.title = state.date
+    }
+
+    override fun viewActionsChanged(action: MainScreenViewActions) {
+        super.viewActionsChanged(action)
+        when (action) {
+            is MainScreenViewActions.RemoveProductRequestAction -> {
+                requireContext().showDialog(
+                    titleResId = R.string.remove_meal_product_dialog_title,
+                    positiveBtnResId = R.string.ok_button_text,
+                    negativeBtnResId = R.string.cancel_button_text,
+                    positiveListener = { viewModel.onRemoveProductConfirm(action.product) },
+                )
             }
-        }
-        viewModel.actionsData.observe(viewLifecycleOwner) {
-            handleViewActions(it)
         }
     }
 
@@ -106,18 +108,6 @@ class MainScreenFragment : Fragment(R.layout.fragment_main) {
         }
     }
 
-    private fun handleViewActions(action: MainScreenViewActions) {
-        when (action) {
-            is MainScreenViewActions.RemoveProductRequestAction -> {
-                requireContext().showDialog(
-                    titleResId = R.string.remove_meal_product_dialog_title,
-                    positiveBtnResId = R.string.ok_button_text,
-                    negativeBtnResId = R.string.cancel_button_text,
-                    positiveListener = { viewModel.onRemoveProductConfirm(action.product) },
-                )
-            }
-        }
-    }
 
     private fun initializeRecyclers() {
         val mealHeaderAdapter = MealHeaderAdapterDelegate().apply {
@@ -134,7 +124,8 @@ class MainScreenFragment : Fragment(R.layout.fragment_main) {
                 viewModel.onMealProductClick(it)
             }.launchIn(viewLifecycleOwner.lifecycleScope)
         }
-        val spars = SparseArray<com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>>()
+        val spars =
+            SparseArray<com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>>()
         spars.put(
             0,
             mealHeaderAdapter as com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>
@@ -143,8 +134,10 @@ class MainScreenFragment : Fragment(R.layout.fragment_main) {
             1,
             mealProductsAdapter as com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>
         )
-        baseDelegateAdapter = com.mohylov.diet.ui.presentation.main.adapters.BaseDelegateAdapter(spars)
+        baseDelegateAdapter =
+            com.mohylov.diet.ui.presentation.main.adapters.BaseDelegateAdapter(spars)
         binding.mealsRecycler.adapter = baseDelegateAdapter
     }
+
 
 }

@@ -6,7 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.mohylov.diet.ui.domain.completeMealProduct.CompleteMealProductInteractor
 import com.mohylov.diet.ui.domain.completeMealProduct.entities.CompleteMealProductItem
 import com.mohylov.diet.ui.domain.mealProductsManagement.MealProductsManagementInteractor
+import com.mohylov.diet.ui.presentation.base.BaseViewAction
 import com.mohylov.diet.ui.presentation.base.BaseViewModel
+import com.mohylov.diet.ui.presentation.base.BaseViewState
 import com.mohylov.diet.ui.presentation.base.NavigationActions
 import com.mohylov.diet.ui.presentation.mealEdit.entities.MealProductInfo
 import com.mohylov.diet.ui.presentation.mealEdit.entities.CompleteMealProductModel
@@ -92,9 +94,9 @@ data class MealEditViewState(
     val productName: String,
     val productValue: Int,
     val completeMealProductModel: CompleteMealProductModel? = null
-)
+) : BaseViewState
 
-sealed class MealEditViewActions {
+sealed class MealEditViewActions : BaseViewAction {
 
 }
 

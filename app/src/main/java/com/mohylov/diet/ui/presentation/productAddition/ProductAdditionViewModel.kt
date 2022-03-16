@@ -3,7 +3,9 @@ package com.mohylov.diet.ui.presentation.productAddition
 import androidx.annotation.StringRes
 import androidx.lifecycle.viewModelScope
 import com.mohylov.diet.ui.domain.products.ProductsInteractor
+import com.mohylov.diet.ui.presentation.base.BaseViewAction
 import com.mohylov.diet.ui.presentation.base.BaseViewModel
+import com.mohylov.diet.ui.presentation.base.BaseViewState
 import com.mohylov.diet.ui.presentation.base.NavigationActions
 import com.mohylov.diet.ui.presentation.productAddition.entities.ProductInputData
 import kotlinx.coroutines.launch
@@ -113,7 +115,7 @@ data class ProductAdditionViewState(
     val proteinsProductValidationState: ProductValidationState = ProductValidationState.Default,
     val fatsProductValidationState: ProductValidationState = ProductValidationState.Default,
     val carbohydratesProductValidationState: ProductValidationState = ProductValidationState.Default
-)
+) : BaseViewState
 
 sealed class ProductValidationState {
     object Default : ProductValidationState()
@@ -123,6 +125,6 @@ sealed class ProductValidationState {
 }
 
 
-sealed class ProductAdditionViewActions {
+sealed class ProductAdditionViewActions : BaseViewAction {
 
 }

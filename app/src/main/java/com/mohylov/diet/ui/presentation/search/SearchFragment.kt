@@ -15,6 +15,7 @@ import com.mohylov.diet.R
 import com.mohylov.diet.databinding.FragmentSearchBinding
 import com.mohylov.diet.ui.appComponent
 import com.mohylov.diet.ui.di.components.searchComponent.DaggerSearchComponent
+import com.mohylov.diet.ui.presentation.base.BaseFragment
 import com.mohylov.diet.ui.presentation.base.NavigationActions
 import com.mohylov.diet.ui.presentation.base.scopedComponent
 import com.mohylov.diet.ui.presentation.base.viewBinding
@@ -27,14 +28,15 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
-class SearchFragment : Fragment(R.layout.fragment_search) {
+class SearchFragment :
+    BaseFragment<SearchViewState, SearchViewActions, SearchViewModel, FragmentSearchBinding>(R.layout.fragment_search) {
 
     @Inject
     lateinit var assistFactory: SearchViewModel.ViewModelAssistFactory
 
-    private val binding by viewBinding(FragmentSearchBinding::bind)
+    override val binding by viewBinding(FragmentSearchBinding::bind)
 
-    private val viewModel: SearchViewModel by viewModels { assistFactory.create(args.mealInfo) }
+    override val viewModel: SearchViewModel by viewModels { assistFactory.create(args.mealInfo) }
 
     private val component by scopedComponent {
         DaggerSearchComponent.builder().deps(requireContext().appComponent()).build()
@@ -51,7 +53,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initObservers()
         initClickProductListener()
         binding.topBar.root.apply {
             title = getString(args.mealInfo.mealNameResId)
@@ -77,28 +78,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 .launchIn(viewLifecycleOwner.lifecycleScope)
         }
 
-    }
-
-    private fun initObservers() {
-        viewModel.stateData.observe(viewLifecycleOwner) {
-            searchAdapter.submitList(it.filteredProducts)
-        }
-
-        viewModel.actionsData.observe(viewLifecycleOwner) {
-            handleSearchActions(it)
-        }
-
-        viewModel.navigationData.observe(viewLifecycleOwner) {
-            when (it) {
-                is NavigationActions.PopBackStack -> {
-                    findNavController().popBackStack()
-                }
-                is NavigationActions.NavigationAction -> {
-                    findNavController().navigate(it.direction)
-                }
-            }
-        }
-
         childFragmentManager.setFragmentResultListener(
             AmountBottomSheetDialog.resultInfoKey,
             viewLifecycleOwner
@@ -107,14 +86,20 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 viewModel.onProductAmountSelected(this)
             }
         }
+
     }
 
-    private fun handleSearchActions(searchViewAction: SearchViewActions) {
-        when (searchViewAction) {
+    override fun viewStateChanged(state: SearchViewState) {
+        searchAdapter.submitList(state.filteredProducts)
+    }
+
+    override fun viewActionsChanged(action: SearchViewActions) {
+        super.viewActionsChanged(action)
+        when (action) {
             is SearchViewActions.AmountConfirmationAction -> {
                 AmountBottomSheetDialog.instance(
-                    searchViewAction.productId,
-                    searchViewAction.dedaultAmount
+                    action.productId,
+                    action.dedaultAmount
                 ).also {
                     it.show(childFragmentManager, this::class.simpleName)
                 }

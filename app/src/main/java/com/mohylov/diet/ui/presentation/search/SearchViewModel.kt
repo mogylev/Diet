@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.mohylov.diet.ui.domain.mealProductsManagement.MealProductsManagementInteractor
 import com.mohylov.diet.ui.domain.products.ProductsInteractor
+import com.mohylov.diet.ui.presentation.base.BaseViewAction
 import com.mohylov.diet.ui.presentation.base.BaseViewModel
+import com.mohylov.diet.ui.presentation.base.BaseViewState
 import com.mohylov.diet.ui.presentation.base.NavigationActions
 import com.mohylov.diet.ui.presentation.main.adapters.ProductViewItem
 import com.mohylov.diet.ui.presentation.mappers.toProductViewItem
@@ -54,7 +56,7 @@ class SearchViewModel(
                 ?: return@launch
             mealProductsManagementInteractor.insertMealProduct(
                 mealType = mealInfo.mealType,
-                productId= productItem.id,
+                productId = productItem.id,
                 date = LocalDate.parse(mealInfo.date),
                 amount = amountInfo.amount
             )
@@ -115,9 +117,9 @@ class SearchViewModel(
 data class SearchViewState(
     val isLoading: Boolean,
     val filteredProducts: List<ProductViewItem>
-)
+) : BaseViewState
 
-sealed class SearchViewActions {
+sealed class SearchViewActions : BaseViewAction {
 
     class AmountConfirmationAction(val productId: Long, val dedaultAmount: Int) :
         SearchViewActions()
