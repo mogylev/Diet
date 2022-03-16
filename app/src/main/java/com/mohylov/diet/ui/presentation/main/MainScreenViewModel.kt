@@ -6,7 +6,9 @@ import com.mohylov.diet.ui.domain.mealProducts.entities.MealProductItem
 import com.mohylov.diet.ui.domain.mealProductsCalculator.MealProductCalculateInteractor
 import com.mohylov.diet.ui.domain.mealProductsCalculator.entities.NutrtientResult
 import com.mohylov.diet.ui.domain.mealProductsManagement.MealProductsManagementInteractor
+import com.mohylov.diet.ui.presentation.base.BaseViewAction
 import com.mohylov.diet.ui.presentation.base.BaseViewModel
+import com.mohylov.diet.ui.presentation.base.BaseViewState
 import com.mohylov.diet.ui.presentation.base.NavigationActions
 import com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapterItem
 import com.mohylov.diet.ui.presentation.main.entities.MealHeaderDelegateItem
@@ -16,6 +18,7 @@ import com.mohylov.diet.ui.presentation.mealEdit.entities.MealProductInfo
 import com.mohylov.diet.ui.presentation.search.entities.MealInfo
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 
@@ -25,15 +28,17 @@ class MainViewModel @Inject constructor(
     private val mealProductsCalculatorInteractor: MealProductCalculateInteractor
 ) : BaseViewModel<MainScreenViewState, MainScreenViewActions>() {
 
+    private val mealItems = MealItem.emptyMeals()
+    private val dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
+    private val today: LocalDate = LocalDate.now()
+
     init {
         initViewState()
     }
 
-    private val mealItems = MealItem.emptyMeals()
-
     fun updateData() {
         viewModelScope.launch {
-            mealProductsInteractor.getMealProductsByDate(getViewState().date).let { mealProducts ->
+            mealProductsInteractor.getMealProductsByDate(today).let { mealProducts ->
                 val nutrientResult =
                     mealProductsCalculatorInteractor.calculateNutrients(mealProducts)
                 val mealsDelegateItems = buildMealList(mealProducts)
@@ -80,7 +85,6 @@ class MainViewModel @Inject constructor(
         )
     }
 
-
     fun onRemoveProductConfirm(product: MealProductDelegateAdapterItem) {
         viewModelScope.launch {
             mealProductsManagementInteractor.removeMealProduct(product.id)
@@ -101,6 +105,7 @@ class MainViewModel @Inject constructor(
     private fun initViewState() {
         stateData.value = MainScreenViewState(
             isLoading = true,
+            date = dateFormatter.format(today),
             mealsItems = MealItem.emptyMeals().map { it.toMealHeaderDelegateAdapterItem() }
         )
     }
@@ -111,12 +116,12 @@ class MainViewModel @Inject constructor(
 
 data class MainScreenViewState(
     val isLoading: Boolean,
-    val date: LocalDate = LocalDate.now(),
+    val date: String,
     val mealsItems: List<DelegateAdapterItem>,
     val nutrientsResult: NutrtientResult = NutrtientResult.empty()
-)
+) : BaseViewState
 
-sealed class MainScreenViewActions {
+sealed class MainScreenViewActions : BaseViewAction {
 
     data class RemoveProductRequestAction(val product: MealProductDelegateAdapterItem) :
         MainScreenViewActions()

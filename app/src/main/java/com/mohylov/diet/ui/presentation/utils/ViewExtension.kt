@@ -12,16 +12,16 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
-fun Fragment.navigate(navigationActions: NavigationActions) {
-    findNavController().apply {
-        when (navigationActions) {
-            is NavigationActions.NavigationAction -> {
-                navigate(navigationActions.direction, navigationActions.navOptions)
-            }
-            is NavigationActions.PopBackStack -> popBackStack()
-        }
-    }
-}
+//fun Fragment.navigate(navigationActions: NavigationActions) {
+//    findNavController().apply {
+//        when (navigationActions) {
+//            is NavigationActions.NavigationAction -> {
+//                navigate(navigationActions.direction, navigationActions.navOptions)
+//            }
+//            is NavigationActions.PopBackStack -> popBackStack()
+//        }
+//    }
+//}
 
 fun TextInputLayout.text(): String {
     return editText?.text.toString()

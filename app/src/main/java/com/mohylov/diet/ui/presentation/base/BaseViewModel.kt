@@ -9,13 +9,13 @@ import com.mohylov.diet.ui.presentation.utils.SingleLiveEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<State : Any, Action : Any> : ViewModel() {
+abstract class BaseViewModel<State : BaseViewState, Action : BaseViewAction> : ViewModel() {
 
     val stateData = MutableLiveData<State>()
     val actionsData = SingleLiveEvent<Action>()
     val navigationData = SingleLiveEvent<NavigationActions>()
-    val errorSnackData = SingleLiveEvent<Int?>()
-    val infoSnackData = SingleLiveEvent<Int?>()
+    val errorSnackData = SingleLiveEvent<Int>()
+    val infoSnackData = SingleLiveEvent<Int>()
     val progressBarData = SingleLiveEvent<Boolean>()
 
     protected fun navigate(navigationAction: NavigationActions) {

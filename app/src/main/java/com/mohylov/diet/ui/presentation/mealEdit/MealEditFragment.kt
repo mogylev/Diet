@@ -11,27 +11,27 @@ import com.mohylov.diet.R
 import com.mohylov.diet.databinding.FragmentMealEditBinding
 import com.mohylov.diet.ui.appComponent
 import com.mohylov.diet.ui.di.components.mealEdit.DaggerMealEditComponent
+import com.mohylov.diet.ui.presentation.base.BaseFragment
 import com.mohylov.diet.ui.presentation.base.NavigationActions
 import com.mohylov.diet.ui.presentation.base.scopedComponent
 import com.mohylov.diet.ui.presentation.base.viewBinding
 import com.mohylov.diet.ui.presentation.mealEdit.entities.CompleteMealProductModel
 import javax.inject.Inject
 
-class MealEditFragment : Fragment(R.layout.fragment_meal_edit) {
-
-    private val binding: FragmentMealEditBinding by viewBinding(FragmentMealEditBinding::bind)
+class MealEditFragment :
+    BaseFragment<MealEditViewState, MealEditViewActions, MealEditViewModel,FragmentMealEditBinding>(R.layout.fragment_meal_edit) {
 
     private val args by navArgs<MealEditFragmentArgs>()
 
     @Inject
     lateinit var factory: MealEditViewModel.Factory
 
+    override val viewModel: MealEditViewModel by viewModels { factory.create(args.mealProductInfo) }
+
+    override val binding: FragmentMealEditBinding by viewBinding (FragmentMealEditBinding::bind)
+
     private val component by scopedComponent {
         DaggerMealEditComponent.builder().deps(requireContext().appComponent()).build()
-    }
-
-    private val viewModel: MealEditViewModel by viewModels {
-        factory.create(args.mealProductInfo)
     }
 
     override fun onAttach(context: Context) {
@@ -41,7 +41,6 @@ class MealEditFragment : Fragment(R.layout.fragment_meal_edit) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initObservers()
         binding.topBar.root.setBackgroundColor(requireContext().getColor(R.color.primaryColor))
         binding.saveButton.setOnClickListener {
             viewModel.onSaveClicked(
@@ -50,18 +49,11 @@ class MealEditFragment : Fragment(R.layout.fragment_meal_edit) {
         }
     }
 
-    private fun initObservers() {
-        viewModel.stateData.observe(viewLifecycleOwner) {
-            binding.productName.text = it.productName
-            handleProductNutrientsInfo(it.completeMealProductModel)
-        }
-        viewModel.navigationData.observe(viewLifecycleOwner) {
-            when (it) {
-                is NavigationActions.NavigationAction -> findNavController().navigate(it.direction)
-                is NavigationActions.PopBackStack -> findNavController().popBackStack()
-            }
-        }
+    override fun viewStateChanged(state: MealEditViewState) {
+        binding.productName.text = state.productName
+        handleProductNutrientsInfo(state.completeMealProductModel)
     }
+
 
     private fun handleProductNutrientsInfo(completeMealProductModel: CompleteMealProductModel?) {
         completeMealProductModel?.let {
@@ -82,5 +74,6 @@ class MealEditFragment : Fragment(R.layout.fragment_meal_edit) {
                 )
         }
     }
+
 
 }
