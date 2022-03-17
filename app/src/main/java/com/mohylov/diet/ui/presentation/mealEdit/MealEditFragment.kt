@@ -3,16 +3,13 @@ package com.mohylov.diet.ui.presentation.mealEdit
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.mohylov.diet.R
 import com.mohylov.diet.databinding.FragmentMealEditBinding
 import com.mohylov.diet.ui.appComponent
 import com.mohylov.diet.ui.di.components.mealEdit.DaggerMealEditComponent
 import com.mohylov.diet.ui.presentation.base.BaseFragment
-import com.mohylov.diet.ui.presentation.base.NavigationActions
 import com.mohylov.diet.ui.presentation.base.scopedComponent
 import com.mohylov.diet.ui.presentation.base.viewBinding
 import com.mohylov.diet.ui.presentation.mealEdit.entities.CompleteMealProductModel

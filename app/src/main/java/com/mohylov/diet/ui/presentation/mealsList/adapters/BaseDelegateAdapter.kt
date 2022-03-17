@@ -1,14 +1,13 @@
-package com.mohylov.diet.ui.presentation.main.adapters
+package com.mohylov.diet.ui.presentation.mealsList.adapters
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.util.SparseArray
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapter
-import com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapterItem
+import com.mohylov.diet.ui.presentation.mealsList.adapters.adapterDelegate.DelegateAdapter
+import com.mohylov.diet.ui.presentation.mealsList.adapters.adapterDelegate.DelegateAdapterItem
 import java.lang.IllegalArgumentException
 
 val callback = object : DiffUtil.ItemCallback<DelegateAdapterItem>() {

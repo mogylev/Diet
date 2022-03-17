@@ -1,4 +1,4 @@
-package com.mohylov.diet.ui.presentation.main.adapters
+package com.mohylov.diet.ui.presentation.mealsList.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,6 @@ import com.mohylov.diet.R
 import com.mohylov.diet.databinding.MealProductItemBinding
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlin.math.roundToInt
 
 
 class ProductsAdapter :

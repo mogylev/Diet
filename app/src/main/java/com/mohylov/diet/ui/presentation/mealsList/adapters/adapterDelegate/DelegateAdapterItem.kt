@@ -1,4 +1,4 @@
-package com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate
+package com.mohylov.diet.ui.presentation.mealsList.adapters.adapterDelegate
 
 interface DelegateAdapterItem {
 

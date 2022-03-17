@@ -2,19 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_graph"
-    app:startDestination="@id/mainScreenFragment">
+    app:startDestination="@id/mealsListFragment">
 
-    <fragment
-        android:id="@+id/mainScreenFragment"
-        android:name="com.mohylov.diet.ui.presentation.main.MainScreenFragment"
-        android:label="MainScreenFragment" >
-        <action
-            android:id="@+id/action_mainScreenFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
-        <action
-            android:id="@+id/action_mainScreenFragment_to_mealEditFragment"
-            app:destination="@id/mealEditFragment" />
-    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.mohylov.diet.ui.presentation.search.SearchFragment"
@@ -38,4 +27,15 @@
         android:id="@+id/productAdditionFragment"
         android:name="com.mohylov.diet.ui.presentation.productAddition.ProductAdditionFragment"
         android:label="ProductAdditionFragment" />
+    <fragment
+        android:id="@+id/mealsListFragment"
+        android:name="com.mohylov.diet.ui.presentation.mealsList.MealsListFragment"
+        android:label="MealsListFragment" >
+        <action
+            android:id="@+id/action_mealsListFragment_to_mealEditFragment"
+            app:destination="@id/mealEditFragment" />
+        <action
+            android:id="@+id/action_mealsListFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
 </navigation>

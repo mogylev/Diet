@@ -1,7 +1,7 @@
 package com.mohylov.diet.ui.di.components.mainComponent
 
 import com.mohylov.diet.ui.di.AppComponent
-import com.mohylov.diet.ui.presentation.main.MainScreenFragment
+import com.mohylov.diet.ui.presentation.mealsList.MealsListFragment
 import dagger.Component
 
 
@@ -9,7 +9,7 @@ import dagger.Component
 @Component(modules = [MainScreenModule::class], dependencies = [AppComponent::class])
 interface MainScreenComponent {
 
-    fun inject(mainScreenFragment: MainScreenFragment)
+    fun inject(mealsListFragment: MealsListFragment)
 
     @Component.Builder
     interface Builder {

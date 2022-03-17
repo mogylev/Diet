@@ -1,4 +1,4 @@
-package com.mohylov.diet.ui.presentation.main.entities
+package com.mohylov.diet.ui.presentation.mealsList.entities
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,8 +6,8 @@ import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.mohylov.diet.databinding.MealHeaderItemBinding
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealType
-import com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapter
-import com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapterItem
+import com.mohylov.diet.ui.presentation.mealsList.adapters.adapterDelegate.DelegateAdapter
+import com.mohylov.diet.ui.presentation.mealsList.adapters.adapterDelegate.DelegateAdapterItem
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow

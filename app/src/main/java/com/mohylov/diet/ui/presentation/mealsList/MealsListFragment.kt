@@ -1,41 +1,39 @@
-package com.mohylov.diet.ui.presentation.main
+package com.mohylov.diet.ui.presentation.mealsList
 
 import android.content.Context
 import android.os.Bundle
 import android.util.SparseArray
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.mohylov.diet.R
 import com.mohylov.diet.databinding.FragmentMainBinding
+import com.mohylov.diet.databinding.FragmentMealsListBinding
 import com.mohylov.diet.ui.appComponent
 import com.mohylov.diet.ui.di.BaseViewModelFactory
 import com.mohylov.diet.ui.di.components.mainComponent.DaggerMainScreenComponent
 import com.mohylov.diet.ui.di.components.mainComponent.MainScreenComponent
 import com.mohylov.diet.ui.domain.mealProductsCalculator.entities.NutrtientResult
 import com.mohylov.diet.ui.presentation.base.BaseFragment
-import com.mohylov.diet.ui.presentation.base.NavigationActions
 import com.mohylov.diet.ui.presentation.base.scopedComponent
 import com.mohylov.diet.ui.presentation.base.viewBinding
-import com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapterItem
-import com.mohylov.diet.ui.presentation.main.entities.MealHeaderAdapterDelegate
-import com.mohylov.diet.ui.presentation.main.entities.MealProductDelegateAdapter
+import com.mohylov.diet.ui.presentation.mealsList.adapters.BaseDelegateAdapter
+import com.mohylov.diet.ui.presentation.mealsList.adapters.adapterDelegate.DelegateAdapterItem
+import com.mohylov.diet.ui.presentation.mealsList.entities.MealHeaderAdapterDelegate
+import com.mohylov.diet.ui.presentation.mealsList.entities.MealProductDelegateAdapter
 import com.mohylov.diet.ui.presentation.utils.showDialog
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
-class MainScreenFragment : BaseFragment<MainScreenViewState,
+class MealsListFragment : BaseFragment<MainScreenViewState,
         MainScreenViewActions,
-        MainViewModel,
-        FragmentMainBinding>(R.layout.fragment_main) {
+        MealsListViewModel,
+        FragmentMealsListBinding>(R.layout.fragment_meals_list) {
 
     @Inject
     lateinit var factory: BaseViewModelFactory
@@ -44,11 +42,11 @@ class MainScreenFragment : BaseFragment<MainScreenViewState,
         DaggerMainScreenComponent.builder().deps(requireContext().appComponent()).build()
     }
 
-    override val viewModel: MainViewModel by viewModels { factory }
+    override val viewModel: MealsListViewModel by viewModels { factory }
 
-    override val binding: FragmentMainBinding by viewBinding(FragmentMainBinding::bind)
+    override val binding: FragmentMealsListBinding by viewBinding(FragmentMealsListBinding::bind)
 
-    private lateinit var baseDelegateAdapter: com.mohylov.diet.ui.presentation.main.adapters.BaseDelegateAdapter
+    private lateinit var baseDelegateAdapter: BaseDelegateAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -125,17 +123,17 @@ class MainScreenFragment : BaseFragment<MainScreenViewState,
             }.launchIn(viewLifecycleOwner.lifecycleScope)
         }
         val spars =
-            SparseArray<com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>>()
+            SparseArray<com.mohylov.diet.ui.presentation.mealsList.adapters.adapterDelegate.DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>>()
         spars.put(
             0,
-            mealHeaderAdapter as com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>
+            mealHeaderAdapter as com.mohylov.diet.ui.presentation.mealsList.adapters.adapterDelegate.DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>
         )
         spars.put(
             1,
-            mealProductsAdapter as com.mohylov.diet.ui.presentation.main.adapters.adapterDelegate.DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>
+            mealProductsAdapter as com.mohylov.diet.ui.presentation.mealsList.adapters.adapterDelegate.DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>
         )
         baseDelegateAdapter =
-            com.mohylov.diet.ui.presentation.main.adapters.BaseDelegateAdapter(spars)
+            com.mohylov.diet.ui.presentation.mealsList.adapters.BaseDelegateAdapter(spars)
         binding.mealsRecycler.adapter = baseDelegateAdapter
     }
 

@@ -15,7 +15,7 @@ import com.mohylov.diet.ui.domain.mealProductsCalculator.MealProductCalculateInt
 import com.mohylov.diet.ui.domain.mealProductsCalculator.MealProductsCalculatorInteractorImpl
 import com.mohylov.diet.ui.domain.mealProductsManagement.MealProductsManagementInteractor
 import com.mohylov.diet.ui.domain.mealProductsManagement.MealProductsManagementImpl
-import com.mohylov.diet.ui.presentation.main.MainViewModel
+import com.mohylov.diet.ui.presentation.mealsList.MealsListViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -43,8 +43,8 @@ interface MainScreenModule {
     ): MealProductCalculateInteractor
 
     @Binds
-    @[IntoMap ViewModelKey(MainViewModel::class)]
-    fun provideMainViewModel(mainViewModel: MainViewModel): ViewModel
+    @[IntoMap ViewModelKey(MealsListViewModel::class)]
+    fun provideMainViewModel(mealsListViewModel: MealsListViewModel): ViewModel
 
     companion object {
 
