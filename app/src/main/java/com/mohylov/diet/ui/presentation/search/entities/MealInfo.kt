@@ -8,6 +8,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class MealInfo(
     val mealType: MealType,
-    val date: String,
+    val date: Long,
     @StringRes val mealNameResId: Int
 ) : Parcelable

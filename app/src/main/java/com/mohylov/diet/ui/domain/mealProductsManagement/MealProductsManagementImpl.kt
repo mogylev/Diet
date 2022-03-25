@@ -4,8 +4,7 @@ import com.mohylov.diet.ui.data.mealProducts.MealProductsRepository
 import com.mohylov.diet.ui.data.products.ProductsRepository
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealProductItem
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealType
-import com.mohylov.diet.ui.domain.products.entities.ProductItem
-import java.time.LocalDate
+import java.time.Instant
 import javax.inject.Inject
 
 class MealProductsManagementImpl @Inject constructor(
@@ -17,7 +16,7 @@ class MealProductsManagementImpl @Inject constructor(
     override suspend fun insertMealProduct(
         mealType: MealType,
         productId: Long,
-        date: LocalDate,
+        date: Instant,
         amount: Int
     ) {
         val productItem = productsRepository.getProductById(productId)

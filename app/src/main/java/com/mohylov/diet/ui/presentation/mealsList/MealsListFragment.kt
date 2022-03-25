@@ -28,12 +28,17 @@ import com.mohylov.diet.ui.presentation.utils.showDialog
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class MealsListFragment : BaseFragment<MainScreenViewState,
         MainScreenViewActions,
         MealsListViewModel,
         FragmentMealsListBinding>(R.layout.fragment_meals_list) {
+
+    private val dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
 
     @Inject
     lateinit var factory: BaseViewModelFactory
@@ -67,7 +72,9 @@ class MealsListFragment : BaseFragment<MainScreenViewState,
     override fun viewStateChanged(state: MainScreenViewState) {
         baseDelegateAdapter.submitList(state.mealsItems)
         handleNutrientsResult(state.nutrientsResult)
-        binding.topBar.root.title = state.date
+        binding.topBar.root.title = with(state.date) {
+            dateFormatter.format(ZonedDateTime.ofInstant(this, ZoneId.systemDefault()))
+        }
     }
 
     override fun viewActionsChanged(action: MainScreenViewActions) {

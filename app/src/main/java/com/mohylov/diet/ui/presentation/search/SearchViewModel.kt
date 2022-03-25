@@ -19,7 +19,7 @@ import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import java.time.LocalDate
+import java.time.Instant
 
 class SearchViewModel(
     private val mealInfo: MealInfo,
@@ -57,7 +57,7 @@ class SearchViewModel(
             mealProductsManagementInteractor.insertMealProduct(
                 mealType = mealInfo.mealType,
                 productId = productItem.id,
-                date = LocalDate.parse(mealInfo.date),
+                date = Instant.ofEpochMilli(mealInfo.date),
                 amount = amountInfo.amount
             )
             navigate(NavigationActions.PopBackStack)
