@@ -1,6 +1,6 @@
 package com.mohylov.diet.ui.presentation.mealsList
 
-import androidx.lifecycle.viewModelScope
+import com.mohylov.diet.ui.domain.filter.FiltersInteractor
 import com.mohylov.diet.ui.domain.mealProducts.MealProductsInteractor
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealProductItem
 import com.mohylov.diet.ui.domain.mealProductsCalculator.MealProductCalculateInteractor
@@ -16,8 +16,8 @@ import com.mohylov.diet.ui.presentation.mealsList.entities.MealItem
 import com.mohylov.diet.ui.presentation.mealsList.entities.MealProductDelegateAdapterItem
 import com.mohylov.diet.ui.presentation.mealEdit.entities.MealProductInfo
 import com.mohylov.diet.ui.presentation.search.entities.MealInfo
-import kotlinx.coroutines.launch
-import java.time.LocalDate
+import kotlinx.coroutines.flow.first
+import java.time.Instant
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
@@ -25,20 +25,20 @@ import javax.inject.Inject
 class MealsListViewModel @Inject constructor(
     private val mealProductsInteractor: MealProductsInteractor,
     private val mealProductsManagementInteractor: MealProductsManagementInteractor,
-    private val mealProductsCalculatorInteractor: MealProductCalculateInteractor
+    private val mealProductsCalculatorInteractor: MealProductCalculateInteractor,
+    private val filtersInteractor: FiltersInteractor
 ) : BaseViewModel<MainScreenViewState, MainScreenViewActions>() {
 
     private val mealItems = MealItem.emptyMeals()
-    private val dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
-    private val today: LocalDate = LocalDate.now()
 
     init {
         initViewState()
     }
 
     fun updateData() {
-        viewModelScope.launch {
-            mealProductsInteractor.getMealProductsByDate(today).let { mealProducts ->
+        async(work = {
+            val selectedDate = filtersInteractor.getSelectedDate().first()
+            mealProductsInteractor.getMealProductsByDate(selectedDate).let { mealProducts ->
                 val nutrientResult =
                     mealProductsCalculatorInteractor.calculateNutrients(mealProducts)
                 val mealsDelegateItems = buildMealList(mealProducts)
@@ -49,7 +49,7 @@ class MealsListViewModel @Inject constructor(
                     )
                 )
             }
-        }
+        })
     }
 
     fun onMealHeaderClick(mealHeader: MealHeaderDelegateItem) {
@@ -58,7 +58,7 @@ class MealsListViewModel @Inject constructor(
                 MealsListFragmentDirections.actionMealsListFragmentToSearchFragment(
                     mealInfo = MealInfo(
                         mealType = mealHeader.mealType,
-                        date = getViewState().date,
+                        date = getViewState().date.toEpochMilli(),
                         mealNameResId = mealHeader.mealNameResId
                     )
                 )
@@ -86,10 +86,10 @@ class MealsListViewModel @Inject constructor(
     }
 
     fun onRemoveProductConfirm(product: MealProductDelegateAdapterItem) {
-        viewModelScope.launch {
+        async(work = {
             mealProductsManagementInteractor.removeMealProduct(product.id)
             updateData()
-        }
+        })
     }
 
     private fun buildMealList(mealProducts: List<MealProductItem>): List<DelegateAdapterItem> {
@@ -105,7 +105,7 @@ class MealsListViewModel @Inject constructor(
     private fun initViewState() {
         stateData.value = MainScreenViewState(
             isLoading = true,
-            date = dateFormatter.format(today),
+            date = Instant.now(),
             mealsItems = MealItem.emptyMeals().map { it.toMealHeaderDelegateAdapterItem() }
         )
     }
@@ -116,7 +116,7 @@ class MealsListViewModel @Inject constructor(
 
 data class MainScreenViewState(
     val isLoading: Boolean,
-    val date: String,
+    val date: Instant,
     val mealsItems: List<DelegateAdapterItem>,
     val nutrientsResult: NutrtientResult = NutrtientResult.empty()
 ) : BaseViewState

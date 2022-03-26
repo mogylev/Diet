@@ -2,13 +2,13 @@ package com.mohylov.diet.ui.data.mealProducts
 
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealProductItem
 import kotlinx.coroutines.flow.Flow
-import java.time.LocalDate
+import java.time.Instant
 
 interface MealProductsRepository {
 
-    fun getMealProducts(): Flow<List<MealProductItem>>
+    fun getAllMealProducts(): Flow<List<MealProductItem>>
 
-    suspend fun getMealProductsByDate(date: LocalDate): List<MealProductItem>
+    suspend fun getMealProductsByDate(date: Instant): List<MealProductItem>
 
     suspend fun getMealProductById(mealProductId: Long): MealProductItem
 

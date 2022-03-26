@@ -1,6 +1,6 @@
 package com.mohylov.diet.ui.domain.mealProducts.entities
 
-import java.time.LocalDate
+import java.time.Instant
 
 data class MealProductItem(
     val id: Long = 0,
@@ -12,5 +12,5 @@ data class MealProductItem(
     val calories: Int,
     val amount: Int,
     val type: MealType,
-    val date: LocalDate
+    val date: Instant
 )

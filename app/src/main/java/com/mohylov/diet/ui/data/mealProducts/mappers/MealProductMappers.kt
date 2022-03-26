@@ -2,6 +2,7 @@ package com.mohylov.diet.ui.data.mealProducts.mappers
 
 import com.mohylov.diet.ui.data.mealProducts.entities.MealProductEntity
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealProductItem
+import java.time.Instant
 
 fun MealProductEntity.toMealProductItem(): MealProductItem {
     return MealProductItem(
@@ -14,7 +15,7 @@ fun MealProductEntity.toMealProductItem(): MealProductItem {
         calories = calories,
         amount = amount,
         type = type,
-        date = date
+        date = Instant.ofEpochMilli(date)
     )
 }
 
@@ -29,6 +30,6 @@ fun MealProductItem.toMealProductEntity(): MealProductEntity {
         calories = calories,
         amount = amount,
         type = type,
-        date = date
+        date = date.toEpochMilli()
     )
 }

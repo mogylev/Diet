@@ -5,35 +5,44 @@ import com.mohylov.diet.ui.data.mealProducts.mappers.toMealProductItem
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealProductItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
-import java.time.LocalDate
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.ZoneOffset.UTC
 import javax.inject.Inject
 
 class MealProductsRepositoryImpl @Inject constructor(private val mealProductDao: MealProductDao) :
     MealProductsRepository {
 
-    override fun getMealProducts(): Flow<List<MealProductItem>> {
+    override fun getAllMealProducts(): Flow<List<MealProductItem>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getMealProductsByDate(date: LocalDate): List<MealProductItem> {
+    override suspend fun getMealProductsByDate(date: Instant): List<MealProductItem> {
         return withContext(Dispatchers.IO) {
-            mealProductDao.getMealProductsByDate(date = date.toString()).map {
+            val startDay =
+                LocalDateTime.ofInstant(date, UTC).toLocalDate().atStartOfDay().toInstant(UTC)
+                    .toEpochMilli()
+            val endDay = LocalDateTime.ofInstant(date, UTC).toLocalDate().atTime(LocalTime.MAX)
+                .toInstant(UTC).toEpochMilli()
+            mealProductDao.getMealProductsByDate(
+                startDayMillis = startDay,
+                endDayMillis = endDay
+            ).map {
                 it.toMealProductItem()
             }
         }
     }
 
     override suspend fun getMealProductById(mealProductId: Long): MealProductItem {
-       return withContext(Dispatchers.IO){
+        return withContext(Dispatchers.IO) {
             mealProductDao.getMealProductById(mealProductId).toMealProductItem()
         }
     }
 
     override suspend fun insertMealProduct(mealProductItem: MealProductItem) {
-        withContext(Dispatchers.IO){
+        withContext(Dispatchers.IO) {
             mealProductDao.insertMealProduct(mealProductItem.toMealProductEntity())
         }
     }
@@ -45,8 +54,8 @@ class MealProductsRepositoryImpl @Inject constructor(private val mealProductDao:
     }
 
     override suspend fun removeMealProduct(productId: Long) {
-       withContext(Dispatchers.IO){
-           mealProductDao.deleteMealProduct(productId)
-       }
+        withContext(Dispatchers.IO) {
+            mealProductDao.deleteMealProduct(productId)
+        }
     }
 }

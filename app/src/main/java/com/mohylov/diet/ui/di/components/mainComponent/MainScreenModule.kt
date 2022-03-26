@@ -2,6 +2,8 @@ package com.mohylov.diet.ui.di.components.mainComponent
 
 import androidx.lifecycle.ViewModel
 import com.mohylov.diet.ui.data.db.AppDatabase
+import com.mohylov.diet.ui.data.filters.FiltersRepository
+import com.mohylov.diet.ui.data.filters.FiltersRepositoryImpl
 import com.mohylov.diet.ui.data.mealProducts.MealProductDao
 import com.mohylov.diet.ui.data.mealProducts.MealProductsRepository
 import com.mohylov.diet.ui.data.mealProducts.MealProductsRepositoryImpl
@@ -9,6 +11,8 @@ import com.mohylov.diet.ui.data.products.ProductDao
 import com.mohylov.diet.ui.data.products.ProductsRepository
 import com.mohylov.diet.ui.data.products.ProductsRepositoryImpl
 import com.mohylov.diet.ui.di.ViewModelKey
+import com.mohylov.diet.ui.domain.filter.FiltersInteractor
+import com.mohylov.diet.ui.domain.filter.FiltersInteractorImpl
 import com.mohylov.diet.ui.domain.mealProducts.MealProductsInteractor
 import com.mohylov.diet.ui.domain.mealProducts.MealProductsInteractorImpl
 import com.mohylov.diet.ui.domain.mealProductsCalculator.MealProductCalculateInteractor
@@ -25,17 +29,21 @@ import dagger.multibindings.IntoMap
 interface MainScreenModule {
 
     @Binds
+    fun bindFiltersInteractor(filtersInteractorImpl: FiltersInteractorImpl): FiltersInteractor
+
+    @Binds
     fun provideMealProductsRepository(mealProductsRepositoryImpl: MealProductsRepositoryImpl): MealProductsRepository
 
     @Binds
     fun provideMealProductsInteractor(mealProductsInteractorImpl: MealProductsInteractorImpl): MealProductsInteractor
 
     @Binds
-    fun productsRepository(productsRepositoryImpl: ProductsRepositoryImpl) : ProductsRepository
+    fun productsRepository(productsRepositoryImpl: ProductsRepositoryImpl): ProductsRepository
 
     @Binds
     fun provideMealProductsManagerInteractor(
-        mealProductsManagerImpl: MealProductsManagementImpl): MealProductsManagementInteractor
+        mealProductsManagerImpl: MealProductsManagementImpl
+    ): MealProductsManagementInteractor
 
     @Binds
     fun bindMealProductsCalculatorInteractor(
