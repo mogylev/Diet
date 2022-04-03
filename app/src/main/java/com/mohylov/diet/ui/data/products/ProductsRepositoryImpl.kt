@@ -1,5 +1,6 @@
 package com.mohylov.diet.ui.data.products
 
+import android.util.Log
 import com.mohylov.diet.ui.data.products.mappers.toProductEntity
 import com.mohylov.diet.ui.data.products.mappers.toProductItem
 import com.mohylov.diet.ui.domain.products.entities.ProductItem
@@ -13,7 +14,13 @@ import javax.inject.Inject
 class ProductsRepositoryImpl @Inject constructor(private val productDao: ProductDao) :
     ProductsRepository {
 
-    override fun getProductsBySearchQuery(searchFilter: String): Flow<List<ProductItem>> {
+    override suspend fun getProducts(): List<ProductItem> {
+        return withContext(Dispatchers.IO) {
+            productDao.getAll().map { it.toProductItem() }
+        }
+    }
+
+    override fun searchProducts(searchFilter: String): Flow<List<ProductItem>> {
         return flow {
             emit(productDao.getFilteredProducts(searchFilter).map { it.toProductItem() })
         }.flowOn(Dispatchers.IO)

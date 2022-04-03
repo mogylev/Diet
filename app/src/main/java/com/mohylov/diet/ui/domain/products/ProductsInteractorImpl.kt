@@ -8,8 +8,8 @@ import javax.inject.Inject
 class ProductsInteractorImpl @Inject constructor(private val productsRepository: ProductsRepository) :
     ProductsInteractor {
 
-    override fun getProductsBySearchFilter(searchFilter: String): Flow<List<ProductItem>> {
-        return productsRepository.getProductsBySearchQuery(searchFilter)
+    override fun searchProducts(searchFilter: String): Flow<List<ProductItem>> {
+        return productsRepository.searchProducts(searchFilter)
     }
 
     override suspend fun getProductById(productId: Long): ProductItem {

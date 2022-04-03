@@ -1,12 +1,10 @@
-package com.mohylov.diet.ui.di.components.mealEdit
+package com.mohylov.diet.ui.di.components.mealEditComponent
 
 import com.mohylov.diet.ui.data.db.AppDatabase
 import com.mohylov.diet.ui.data.mealProducts.MealProductDao
 import com.mohylov.diet.ui.data.mealProducts.MealProductsRepository
 import com.mohylov.diet.ui.data.mealProducts.MealProductsRepositoryImpl
 import com.mohylov.diet.ui.data.products.ProductDao
-import com.mohylov.diet.ui.data.products.ProductsRepository
-import com.mohylov.diet.ui.data.products.ProductsRepositoryImpl
 import com.mohylov.diet.ui.di.AppComponent
 import com.mohylov.diet.ui.domain.completeMealProduct.CompleteMealProductInteractor
 import com.mohylov.diet.ui.domain.completeMealProduct.CompleteMealProductInteractorImpl
@@ -41,9 +39,6 @@ annotation class MealEditScope
 
 @Module
 interface MealEditModule {
-
-    @Binds
-    fun bindProductsRepository(productsRepositoryImpl: ProductsRepositoryImpl): ProductsRepository
 
     @Binds
     fun bindMealProductsRepository(mealProductsRepositoryImpl: MealProductsRepositoryImpl): MealProductsRepository

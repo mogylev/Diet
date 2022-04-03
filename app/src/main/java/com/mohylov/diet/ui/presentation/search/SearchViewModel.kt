@@ -32,7 +32,7 @@ class SearchViewModel(
     }
 
     fun onSearchTextChanged(searchQuery: String) {
-        productsInteractor.getProductsBySearchFilter(searchQuery)
+        productsInteractor.searchProducts(searchQuery)
             .onEach { products ->
                 updateState(getViewState().copy(
                     filteredProducts = products.map { it.toProductViewItem() }

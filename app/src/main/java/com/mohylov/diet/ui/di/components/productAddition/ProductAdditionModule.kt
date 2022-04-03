@@ -17,9 +17,6 @@ import dagger.multibindings.IntoMap
 interface ProductAdditionModule {
 
     @Binds
-    fun provideProductRepository(productsRepositoryImpl: ProductsRepositoryImpl): ProductsRepository
-
-    @Binds
     fun provideProductInteractor(productsInteractorImp: ProductsInteractorImpl): ProductsInteractor
 
     @Binds

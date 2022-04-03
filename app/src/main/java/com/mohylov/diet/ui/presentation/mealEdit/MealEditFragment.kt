@@ -8,7 +8,7 @@ import androidx.navigation.fragment.navArgs
 import com.mohylov.diet.R
 import com.mohylov.diet.databinding.FragmentMealEditBinding
 import com.mohylov.diet.ui.appComponent
-import com.mohylov.diet.ui.di.components.mealEdit.DaggerMealEditComponent
+import com.mohylov.diet.ui.di.components.mealEditComponent.DaggerMealEditComponent
 import com.mohylov.diet.ui.presentation.base.BaseFragment
 import com.mohylov.diet.ui.presentation.base.scopedComponent
 import com.mohylov.diet.ui.presentation.base.viewBinding

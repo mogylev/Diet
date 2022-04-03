@@ -11,6 +11,7 @@
         android:id="@+id/productName"
         style="@style/textSubtitle2"
         android:layout_width="0dp"
+        android:layout_marginRight="@dimen/margin"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_size_xl"
         app:layout_constraintLeft_toLeftOf="parent"
