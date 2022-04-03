@@ -12,4 +12,6 @@ interface ProductsRepository {
     suspend fun getProductById(productId: Long): ProductItem
 
     suspend fun createProduct(product: ProductItem)
+    
+    suspend fun removeProduct(productId: Long)
 }

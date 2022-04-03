@@ -58,16 +58,16 @@ class MealProductDelegateAdapter :
             val context = binding.root.context
             binding.apply {
                 productName.text = productItem.name
-                productCarbo.text = context.getString(
+                productInfo.carbohydrates.text = context.getString(
                     R.string.carbohydrates, productItem.carbohydrates
                 )
-                productFats.text = context.getString(
+                productInfo.fats.text = context.getString(
                     R.string.fats, productItem.fats
                 )
-                productKkal.text = context.getString(
+                productInfo.calories.text = context.getString(
                     R.string.calories, productItem.calories
                 )
-                productProtein.text = context.getString(
+                productInfo.proteins.text = context.getString(
                     R.string.proteins, productItem.protein
                 )
             }

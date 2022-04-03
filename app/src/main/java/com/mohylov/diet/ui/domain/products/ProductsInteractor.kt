@@ -9,11 +9,4 @@ interface ProductsInteractor {
 
     suspend fun getProductById(productId: Long): ProductItem
 
-    suspend fun createProduct(
-        productName: String,
-        caloriesAmount: Int,
-        proteinsAmount: Float,
-        fatsAmount: Float,
-        carbohydratesAmount: Float
-    )
 }

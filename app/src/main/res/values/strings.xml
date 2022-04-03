@@ -4,6 +4,9 @@
     <string name="ok_button_text">OK</string>
     <string name="cancel_button_text">Cancel</string>
 
+    <string name="remove_text">Удалить</string>
+
+
     //Main screen
     <string name="breakfast">Завтрак</string>
     <string name="breakfast_snack">Второй завтрак</string>
@@ -48,6 +51,5 @@
     <string name="error_empty_field">Поле не должно быть пустым</string>
 
     <string name="error_generic">Что-то пошло не так</string>
-
 
 </resources>

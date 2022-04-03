@@ -1,6 +1,5 @@
 package com.mohylov.diet.ui.data.products
 
-import android.util.Log
 import com.mohylov.diet.ui.data.products.mappers.toProductEntity
 import com.mohylov.diet.ui.data.products.mappers.toProductItem
 import com.mohylov.diet.ui.domain.products.entities.ProductItem
@@ -33,8 +32,14 @@ class ProductsRepositoryImpl @Inject constructor(private val productDao: Product
     }
 
     override suspend fun createProduct(product: ProductItem) {
-        return withContext(Dispatchers.IO) {
+        withContext(Dispatchers.IO) {
             productDao.insertProduct(product.toProductEntity())
+        }
+    }
+
+    override suspend fun removeProduct(productId: Long) {
+        withContext(Dispatchers.IO) {
+            productDao.removeProduct(productId)
         }
     }
 }

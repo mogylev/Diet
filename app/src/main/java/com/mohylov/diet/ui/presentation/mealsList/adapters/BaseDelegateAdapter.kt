@@ -39,7 +39,7 @@ class BaseDelegateAdapter(
                 return delegates.keyAt(i)
             }
         }
-        throw IllegalArgumentException("Adapter has now proper viewType")
+        throw IllegalArgumentException("Adapter has no proper viewType")
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

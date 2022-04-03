@@ -3,6 +3,7 @@ package com.mohylov.diet.ui.presentation.productAddition
 import androidx.annotation.StringRes
 import androidx.lifecycle.viewModelScope
 import com.mohylov.diet.ui.domain.products.ProductsInteractor
+import com.mohylov.diet.ui.domain.products.create.ProductCreationInteractor
 import com.mohylov.diet.ui.presentation.base.BaseViewAction
 import com.mohylov.diet.ui.presentation.base.BaseViewModel
 import com.mohylov.diet.ui.presentation.base.BaseViewState
@@ -12,7 +13,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ProductAdditionViewModel @Inject constructor(
-    private val productsInteractor: ProductsInteractor
+    private val productsInteractor: ProductsInteractor,
+    private val productCreationInteractor: ProductCreationInteractor
 ) :
     BaseViewModel<ProductAdditionViewState, ProductAdditionViewActions>() {
 
@@ -27,7 +29,7 @@ class ProductAdditionViewModel @Inject constructor(
     fun onAddClick(productInputData: ProductInputData) {
         async(work = {
             if (validateInputData(productInputData)) {
-                productsInteractor.createProduct(
+                productCreationInteractor.createProduct(
                     productName = productInputData.productName,
                     caloriesAmount = productInputData.productCalories.toIntOrNull() ?: 0,
                     proteinsAmount = productInputData.productProteins.toFloatOrNull() ?: 0f,
