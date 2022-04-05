@@ -5,8 +5,9 @@ import com.mohylov.diet.ui.domain.products.entities.ProductItem
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class ProductsInteractorImpl @Inject constructor(private val productsRepository: ProductsRepository) :
-    ProductsInteractor {
+class ProductsInteractorImpl @Inject constructor(
+    private val productsRepository: ProductsRepository,
+) : ProductsInteractor {
 
     override fun searchProducts(searchFilter: String): Flow<List<ProductItem>> {
         return productsRepository.searchProducts(searchFilter)

@@ -1,7 +1,6 @@
-package com.mohylov.diet.ui.presentation.productsManagement.personal
+package com.mohylov.diet.ui.presentation.productsManagement.personalProducts
 
-import android.util.Log
-import com.mohylov.diet.ui.domain.products.personal.PersonalProductsInteractor
+import com.mohylov.diet.ui.domain.products.personalProducts.PersonalProductsInteractor
 import com.mohylov.diet.ui.domain.products.remove.ProductRemovingInteractor
 import com.mohylov.diet.ui.presentation.base.BaseViewAction
 import com.mohylov.diet.ui.presentation.base.BaseViewModel
@@ -17,17 +16,10 @@ class PersonalProductsViewModel @Inject constructor(
 ) :
     BaseViewModel<PersonalProductsViewState, PersonalProductsViewActions>() {
 
+    private var searchFilter = ""
+
     init {
         initState()
-        initPersonalProducts()
-    }
-
-    private fun getState(): PersonalProductsViewState {
-        return stateData.value as PersonalProductsViewState
-    }
-
-    private fun initState() {
-        stateData.value = PersonalProductsViewState()
     }
 
     fun onPopupMenuSelected(selection: Map<PopUpMenuItem, ProductViewItem>) {
@@ -40,24 +32,37 @@ class PersonalProductsViewModel @Inject constructor(
         }
     }
 
+    fun onFilterChanged(it: String) {
+        searchFilter = it
+        refreshData()
+    }
+
+    fun refreshData() {
+        async(work = {
+            updateState(
+                getState().copy(
+                    productList = personalProductsInteractor.searchPersonalProducts(searchFilter)
+                        .map { it.toProductViewItem() }
+                )
+            )
+        })
+    }
+
     private fun removeProduct(product: ProductViewItem) {
         async(work = {
             productRemovingInteractor.removeProduct(
                 product.id
             )
-            initPersonalProducts()
+            refreshData()
         })
     }
 
-    private fun initPersonalProducts() {
-        async(work = {
-            updateState(
-                getState().copy(
-                    productList = personalProductsInteractor.getPersonalProducts().take(10)
-                        .map { it.toProductViewItem() }
-                )
-            )
-        })
+    private fun getState(): PersonalProductsViewState {
+        return stateData.value as PersonalProductsViewState
+    }
+
+    private fun initState() {
+        stateData.value = PersonalProductsViewState()
     }
 
 }

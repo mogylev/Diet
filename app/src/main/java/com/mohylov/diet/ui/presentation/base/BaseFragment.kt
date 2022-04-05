@@ -40,13 +40,13 @@ VS : BaseViewState, VA : BaseViewAction, VM : BaseViewModel<VS, VA>, VB : ViewBi
 
     protected open fun viewActionsChanged(action: VA) {}
 
-    private fun showSnackBar(@StringRes resId: Int) {
+    protected fun showSnackBar(@StringRes resId: Int) {
         Snackbar.make(requireView(), resId, Snackbar.LENGTH_SHORT).apply {
             setAction(R.string.ok_button_text) {}
         }.show()
     }
 
-    private fun navigate(navAction: NavigationActions) {
+    protected fun navigate(navAction: NavigationActions) {
         findNavController().apply {
             when (navAction) {
                 is NavigationActions.NavigationAction -> {

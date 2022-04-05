@@ -5,6 +5,7 @@ import com.mohylov.diet.ui.data.Persistence
 import com.mohylov.diet.ui.data.db.AppDatabase
 import com.mohylov.diet.ui.data.filters.FiltersRepository
 import com.mohylov.diet.ui.data.products.ProductsRepository
+import com.mohylov.diet.ui.domain.products.FilterStrategy
 import dagger.BindsInstance
 import dagger.Component
 import kotlinx.coroutines.CoroutineScope
@@ -25,6 +26,8 @@ interface AppComponent {
     val productsRepository: ProductsRepository
 
     val appCoroutineScope: CoroutineScope
+
+    val filterStrategy: FilterStrategy
 
     @Component.Builder
     interface Builder {

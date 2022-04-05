@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.6" />
+        app:layout_constraintGuide_percent="0.60" />
 
     <TextView
         android:id="@+id/productName"
@@ -32,6 +32,7 @@
         layout="@layout/product_info_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/vertocalGuideline"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

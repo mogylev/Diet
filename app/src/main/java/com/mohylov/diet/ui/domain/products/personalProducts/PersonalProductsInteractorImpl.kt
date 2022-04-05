@@ -1,10 +1,14 @@
-package com.mohylov.diet.ui.domain.products.personal
+package com.mohylov.diet.ui.domain.products.personalProducts
 
 import com.mohylov.diet.ui.data.products.ProductsRepository
+import com.mohylov.diet.ui.domain.products.FilterStrategy
 import com.mohylov.diet.ui.domain.products.entities.ProductItem
 import javax.inject.Inject
 
-class PersonalProductsInteractorImpl @Inject constructor(private val productsRepository: ProductsRepository) :
+class PersonalProductsInteractorImpl @Inject constructor(
+    private val filterStrategy: FilterStrategy,
+    private val productsRepository: ProductsRepository
+) :
     PersonalProductsInteractor {
 
     override suspend fun getPersonalProducts(): List<ProductItem> {
@@ -12,6 +16,6 @@ class PersonalProductsInteractorImpl @Inject constructor(private val productsRep
     }
 
     override suspend fun searchPersonalProducts(searchFilter: String): List<ProductItem> {
-        return getPersonalProducts().filter { it.productName.contains(searchFilter) }
+        return filterStrategy.filter(searchFilter, getPersonalProducts())
     }
 }

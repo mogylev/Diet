@@ -11,7 +11,7 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 
-private val mealProductsDiffCallback = object : DiffUtil.ItemCallback<ProductViewItem>() {
+private val productsDiffCallback = object : DiffUtil.ItemCallback<ProductViewItem>() {
 
     override fun areItemsTheSame(
         oldItem: ProductViewItem,
@@ -31,7 +31,7 @@ private val mealProductsDiffCallback = object : DiffUtil.ItemCallback<ProductVie
 
 class ProductsAdapter :
     ListAdapter<ProductViewItem, ProductsAdapter.MealProductViewHolder>(
-        mealProductsDiffCallback
+        productsDiffCallback
     ) {
 
     private val _clickFlow = MutableSharedFlow<ProductViewItem>(

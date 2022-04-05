@@ -1,7 +1,7 @@
 package com.mohylov.diet.ui.di.components.personalProductComponent
 
 import com.mohylov.diet.ui.di.AppComponent
-import com.mohylov.diet.ui.presentation.productsManagement.personal.PersonalProductsFragment
+import com.mohylov.diet.ui.presentation.productsManagement.personalProducts.PersonalProductsFragment
 import dagger.Component
 import javax.inject.Scope
 

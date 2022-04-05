@@ -1,4 +1,4 @@
-package com.mohylov.diet.ui.domain.products.personal
+package com.mohylov.diet.ui.domain.products.personalProducts
 
 import com.mohylov.diet.ui.domain.products.entities.ProductItem
 
