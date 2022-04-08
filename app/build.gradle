@@ -65,6 +65,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$libs.appcompat"
     implementation "com.google.android.material:material:$libs.material"
 
+    implementation "androidx.fragment:fragment-ktx:$libs.fragment_version"
 
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     implementation "androidx.navigation:navigation-fragment-ktx:$libs.navigation"

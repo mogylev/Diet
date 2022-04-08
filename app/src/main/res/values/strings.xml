@@ -4,6 +4,9 @@
     <string name="ok_button_text">OK</string>
     <string name="cancel_button_text">Cancel</string>
 
+    <string name="remove_text">Удалить</string>
+
+
     //Main screen
     <string name="breakfast">Завтрак</string>
     <string name="breakfast_snack">Второй завтрак</string>
@@ -39,11 +42,14 @@
     <string name="serach_menu_add_product_title">Добавить продукт</string>
     <string name="addition_text">Добавить</string>
 
+    //products screen
+    <string name="products_title">Продукты</string>
+    <string name="products_default_tab_title">Базовые</string>
+    <string name="products_personal_tab_title">Мои</string>
+
 
     <string name="error_empty_field">Поле не должно быть пустым</string>
 
     <string name="error_generic">Что-то пошло не так</string>
-
-
 
 </resources>

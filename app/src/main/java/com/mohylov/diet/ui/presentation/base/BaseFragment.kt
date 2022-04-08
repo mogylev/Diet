@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
 import com.mohylov.diet.R
+import com.mohylov.diet.ui.presentation.base.navigation.handleNavigation
 
 abstract class BaseFragment<VS, VA, VM, VB>(@LayoutRes resId: Int) : Fragment(resId) where
 VS : BaseViewState, VA : BaseViewAction, VM : BaseViewModel<VS, VA>, VB : ViewBinding {
@@ -40,20 +41,14 @@ VS : BaseViewState, VA : BaseViewAction, VM : BaseViewModel<VS, VA>, VB : ViewBi
 
     protected open fun viewActionsChanged(action: VA) {}
 
-    private fun showSnackBar(@StringRes resId: Int) {
+    protected fun showSnackBar(@StringRes resId: Int) {
         Snackbar.make(requireView(), resId, Snackbar.LENGTH_SHORT).apply {
             setAction(R.string.ok_button_text) {}
         }.show()
     }
 
-    private fun navigate(navAction: NavigationActions) {
-        findNavController().apply {
-            when (navAction) {
-                is NavigationActions.NavigationAction -> {
-                    navigate(navAction.direction, navAction.navOptions)
-                }
-                is NavigationActions.PopBackStack -> popBackStack()
-            }
-        }
+    protected fun navigate(navAction: NavigationActions) {
+        handleNavigation(navAction)
     }
 }
+

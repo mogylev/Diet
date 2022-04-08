@@ -3,7 +3,6 @@ package com.mohylov.diet.ui.data.mealProducts.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealType
-import java.time.LocalDate
 
 @Entity(tableName = "mealProducts")
 data class MealProductEntity(
@@ -16,5 +15,5 @@ data class MealProductEntity(
     val calories: Int,
     val amount: Int,
     val type: MealType,
-    val date: LocalDate
+    val date: Long
 )

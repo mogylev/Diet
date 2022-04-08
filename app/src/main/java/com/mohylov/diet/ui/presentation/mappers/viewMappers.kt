@@ -2,7 +2,7 @@ package com.mohylov.diet.ui.presentation.mappers
 
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealProductItem
 import com.mohylov.diet.ui.domain.products.entities.ProductItem
-import com.mohylov.diet.ui.presentation.main.adapters.ProductViewItem
+import com.mohylov.diet.ui.presentation.mealsList.adapters.ProductViewItem
 
 fun List<MealProductItem>.toProductViewItems(): List<ProductViewItem> {
     return this.map { it.toMealProductViewItem() }

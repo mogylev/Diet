@@ -47,7 +47,7 @@ abstract class BaseViewModel<State : BaseViewState, Action : BaseViewAction> : V
         errorSnackData.setValue(messageId)
     }
 
-    protected fun onError(throwable: Throwable) {
+    protected open fun onError(throwable: Throwable) {
         Log.e("BaseViewModel", "${throwable.message}: ")
     }
 

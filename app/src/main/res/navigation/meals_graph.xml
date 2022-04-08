@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/meals_graph"
+    app:startDestination="@id/mealsListFragment">
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.mohylov.diet.ui.presentation.search.SearchFragment"
+        android:label="SearchFragment" >
+        <argument
+            android:name="mealInfo"
+            app:argType="com.mohylov.diet.ui.presentation.search.entities.MealInfo" />
+    </fragment>
+    <fragment
+        android:id="@+id/mealEditFragment"
+        android:name="com.mohylov.diet.ui.presentation.mealEdit.MealEditFragment"
+        android:label="MealEditFragment" >
+        <argument
+            android:name="mealProductInfo"
+            app:argType="com.mohylov.diet.ui.presentation.mealEdit.entities.MealProductInfo" />
+    </fragment>
+    <fragment
+        android:id="@+id/mealsListFragment"
+        android:name="com.mohylov.diet.ui.presentation.mealsList.MealsListFragment"
+        android:label="MealsListFragment" >
+        <action
+            android:id="@+id/action_mealsListFragment_to_mealEditFragment"
+            app:destination="@id/mealEditFragment" />
+        <action
+            android:id="@+id/action_mealsListFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+</navigation>

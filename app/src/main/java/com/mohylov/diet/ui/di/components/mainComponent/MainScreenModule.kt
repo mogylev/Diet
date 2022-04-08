@@ -6,16 +6,16 @@ import com.mohylov.diet.ui.data.mealProducts.MealProductDao
 import com.mohylov.diet.ui.data.mealProducts.MealProductsRepository
 import com.mohylov.diet.ui.data.mealProducts.MealProductsRepositoryImpl
 import com.mohylov.diet.ui.data.products.ProductDao
-import com.mohylov.diet.ui.data.products.ProductsRepository
-import com.mohylov.diet.ui.data.products.ProductsRepositoryImpl
 import com.mohylov.diet.ui.di.ViewModelKey
+import com.mohylov.diet.ui.domain.filter.FiltersInteractor
+import com.mohylov.diet.ui.domain.filter.FiltersInteractorImpl
 import com.mohylov.diet.ui.domain.mealProducts.MealProductsInteractor
 import com.mohylov.diet.ui.domain.mealProducts.MealProductsInteractorImpl
 import com.mohylov.diet.ui.domain.mealProductsCalculator.MealProductCalculateInteractor
 import com.mohylov.diet.ui.domain.mealProductsCalculator.MealProductsCalculatorInteractorImpl
 import com.mohylov.diet.ui.domain.mealProductsManagement.MealProductsManagementInteractor
 import com.mohylov.diet.ui.domain.mealProductsManagement.MealProductsManagementImpl
-import com.mohylov.diet.ui.presentation.main.MainViewModel
+import com.mohylov.diet.ui.presentation.mealsList.MealsListViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -25,17 +25,18 @@ import dagger.multibindings.IntoMap
 interface MainScreenModule {
 
     @Binds
+    fun bindFiltersInteractor(filtersInteractorImpl: FiltersInteractorImpl): FiltersInteractor
+
+    @Binds
     fun provideMealProductsRepository(mealProductsRepositoryImpl: MealProductsRepositoryImpl): MealProductsRepository
 
     @Binds
     fun provideMealProductsInteractor(mealProductsInteractorImpl: MealProductsInteractorImpl): MealProductsInteractor
 
     @Binds
-    fun productsRepository(productsRepositoryImpl: ProductsRepositoryImpl) : ProductsRepository
-
-    @Binds
     fun provideMealProductsManagerInteractor(
-        mealProductsManagerImpl: MealProductsManagementImpl): MealProductsManagementInteractor
+        mealProductsManagerImpl: MealProductsManagementImpl
+    ): MealProductsManagementInteractor
 
     @Binds
     fun bindMealProductsCalculatorInteractor(
@@ -43,8 +44,8 @@ interface MainScreenModule {
     ): MealProductCalculateInteractor
 
     @Binds
-    @[IntoMap ViewModelKey(MainViewModel::class)]
-    fun provideMainViewModel(mainViewModel: MainViewModel): ViewModel
+    @[IntoMap ViewModelKey(MealsListViewModel::class)]
+    fun provideMainViewModel(mealsListViewModel: MealsListViewModel): ViewModel
 
     companion object {
 

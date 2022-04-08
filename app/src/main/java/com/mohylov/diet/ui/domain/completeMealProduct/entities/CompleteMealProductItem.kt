@@ -2,7 +2,7 @@ package com.mohylov.diet.ui.domain.completeMealProduct.entities
 
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealType
 import com.mohylov.diet.ui.domain.products.entities.ProductItem
-import java.time.LocalDate
+import java.time.Instant
 
 data class CompleteMealProductItem(
     val id: Long = 0,
@@ -10,5 +10,5 @@ data class CompleteMealProductItem(
     val name: String,
     val amount: Int,
     val type: MealType,
-    val date: LocalDate
+    val date: Instant
 )

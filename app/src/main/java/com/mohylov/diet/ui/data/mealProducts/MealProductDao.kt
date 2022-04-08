@@ -6,8 +6,8 @@ import com.mohylov.diet.ui.data.mealProducts.entities.MealProductEntity
 @Dao
 interface MealProductDao {
 
-    @Query("SELECT * FROM mealProducts WHERE date = :date ")
-    fun getMealProductsByDate(date: String): List<MealProductEntity>
+    @Query("SELECT * FROM mealProducts WHERE date BETWEEN :startDayMillis AND :endDayMillis ")
+    fun getMealProductsByDate(startDayMillis: Long, endDayMillis: Long): List<MealProductEntity>
 
     @Query("SELECT * FROM mealProducts")
     fun getAllMealProducts(): List<MealProductEntity>

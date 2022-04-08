@@ -1,15 +1,14 @@
 package com.mohylov.diet.ui.domain.mealProductsManagement
 
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealType
-import com.mohylov.diet.ui.domain.products.entities.ProductItem
-import java.time.LocalDate
+import java.time.Instant
 
 interface MealProductsManagementInteractor {
 
     suspend fun insertMealProduct(
         mealType: MealType,
         productId: Long,
-        date: LocalDate,
+        date: Instant,
         amount: Int
     )
 

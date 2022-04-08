@@ -4,6 +4,8 @@ import androidx.room.RoomDatabase
 import com.mohylov.diet.ui.data.products.productDataProvider.DefaultProductsDataProvider
 import com.mohylov.diet.ui.data.products.productDataProvider.DefaultLocalProductsDataProviderImpl
 import com.mohylov.diet.ui.data.db.PrePopulateCallback
+import com.mohylov.diet.ui.domain.products.DefaultFilterStrategy
+import com.mohylov.diet.ui.domain.products.FilterStrategy
 import dagger.Binds
 import dagger.Module
 
@@ -16,4 +18,7 @@ interface AppBindModule {
 
     @Binds
     fun bindInitialDataProvider(initialProvider: DefaultLocalProductsDataProviderImpl): DefaultProductsDataProvider
+
+    @Binds
+    abstract fun bindFilterStrategy(defaultFilterStrategy: DefaultFilterStrategy): FilterStrategy
 }
