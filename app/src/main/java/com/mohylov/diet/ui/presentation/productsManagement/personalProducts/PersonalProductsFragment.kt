@@ -14,7 +14,7 @@ import com.mohylov.diet.ui.di.components.personalProductComponent.DaggerPersonal
 import com.mohylov.diet.ui.presentation.base.BaseFragment
 import com.mohylov.diet.ui.presentation.base.scopedComponent
 import com.mohylov.diet.ui.presentation.base.viewBinding
-import com.mohylov.diet.ui.presentation.mealsList.adapters.ProductsAdapter
+import com.mohylov.diet.ui.presentation.productsManagement.personalProducts.adapters.PersonalProductsAdapter
 import com.mohylov.diet.ui.presentation.utils.onTextChaged
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
@@ -34,7 +34,7 @@ class PersonalProductsFragment :
         DaggerPersonalProductsComponent.factory().create(requireContext().appComponent())
     }
 
-    private val productsAdapter = ProductsAdapter()
+    private val productsAdapter = PersonalProductsAdapter()
 
     override val viewModel: PersonalProductsViewModel by viewModels {
         viewModelFactory

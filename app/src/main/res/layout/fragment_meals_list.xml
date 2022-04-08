@@ -21,7 +21,7 @@
         app:layout_constraintBottom_toTopOf="@id/totalNutrientsBar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topBar"
-        app:navGraph="@navigation/home_graph" />
+        app:navGraph="@navigation/main_graph" />
 
     <include
         android:id="@+id/totalNutrientsBar"

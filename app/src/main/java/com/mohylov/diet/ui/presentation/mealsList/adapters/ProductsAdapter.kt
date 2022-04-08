@@ -29,7 +29,7 @@ private val productsDiffCallback = object : DiffUtil.ItemCallback<ProductViewIte
 
 }
 
-class ProductsAdapter :
+open class ProductsAdapter :
     ListAdapter<ProductViewItem, ProductsAdapter.MealProductViewHolder>(
         productsDiffCallback
     ) {
@@ -39,16 +39,8 @@ class ProductsAdapter :
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
-    private val _popupMenuClickFlow = MutableSharedFlow<Map<PopUpMenuItem, ProductViewItem>>(
-        extraBufferCapacity = 1,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
-
     val clickFlow: Flow<ProductViewItem>
         get() = _clickFlow
-
-    val popupMenuClickFlow: Flow<Map<PopUpMenuItem, ProductViewItem>>
-        get() = _popupMenuClickFlow
 
     inner class MealProductViewHolder(
         val binding: MealProductItemBinding,
@@ -87,34 +79,11 @@ class ProductsAdapter :
             binding.rootContainer.setOnClickListener {
                 _clickFlow.tryEmit(productItem ?: return@setOnClickListener)
             }
-            binding.rootContainer.setOnLongClickListener {
-                productItem?.let { }
-                with(productItem) {
-                    if (this == null) return@setOnLongClickListener false
-                    showPopupMenu(binding.root, this)
-                    true
-                }
-            }
         }
     }
 
     override fun onBindViewHolder(holder: MealProductViewHolder, position: Int) {
         holder.bind(getItem(position))
-    }
-
-    private fun showPopupMenu(view: View, productItem: ProductViewItem) {
-        val popUp = PopupMenu(view.context, view, Gravity.END)
-        val inflate: MenuInflater = popUp.menuInflater
-        inflate.inflate(R.menu.product_popup_menu, popUp.menu)
-        popUp.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.remove_menu -> {
-                    _popupMenuClickFlow.tryEmit(mapOf(PopUpMenuItem.Delete to productItem))
-                }
-            }
-            true
-        }
-        popUp.show()
     }
 
 }
@@ -127,7 +96,3 @@ class ProductViewItem(
     val carbohydrates: Float,
     val calories: Int
 )
-
-sealed class PopUpMenuItem {
-    object Delete : PopUpMenuItem()
-}

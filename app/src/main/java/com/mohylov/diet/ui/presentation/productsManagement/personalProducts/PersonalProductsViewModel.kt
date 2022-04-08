@@ -6,8 +6,8 @@ import com.mohylov.diet.ui.presentation.base.BaseViewAction
 import com.mohylov.diet.ui.presentation.base.BaseViewModel
 import com.mohylov.diet.ui.presentation.base.BaseViewState
 import com.mohylov.diet.ui.presentation.mappers.toProductViewItem
-import com.mohylov.diet.ui.presentation.mealsList.adapters.PopUpMenuItem
 import com.mohylov.diet.ui.presentation.mealsList.adapters.ProductViewItem
+import com.mohylov.diet.ui.presentation.productsManagement.personalProducts.adapters.PopUpMenuItem
 import javax.inject.Inject
 
 class PersonalProductsViewModel @Inject constructor(
@@ -23,7 +23,7 @@ class PersonalProductsViewModel @Inject constructor(
     }
 
     fun onPopupMenuSelected(selection: Map<PopUpMenuItem, ProductViewItem>) {
-        selection.forEach { key, value ->
+        selection.forEach { (key, value) ->
             when (key) {
                 PopUpMenuItem.Delete -> {
                     removeProduct(value)
