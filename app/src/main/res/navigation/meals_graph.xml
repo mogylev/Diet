@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_graph"
+    android:id="@+id/meals_graph"
     app:startDestination="@id/mealsListFragment">
 
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.mohylov.diet.ui.presentation.search.SearchFragment"
         android:label="SearchFragment" >
-        <action
-            android:id="@+id/action_searchFragment_to_productAdditionFragment"
-            app:destination="@id/productAdditionFragment" />
         <argument
             android:name="mealInfo"
             app:argType="com.mohylov.diet.ui.presentation.search.entities.MealInfo" />
@@ -23,10 +20,6 @@
             android:name="mealProductInfo"
             app:argType="com.mohylov.diet.ui.presentation.mealEdit.entities.MealProductInfo" />
     </fragment>
-    <fragment
-        android:id="@+id/productAdditionFragment"
-        android:name="com.mohylov.diet.ui.presentation.productAddition.ProductAdditionFragment"
-        android:label="ProductAdditionFragment" />
     <fragment
         android:id="@+id/mealsListFragment"
         android:name="com.mohylov.diet.ui.presentation.mealsList.MealsListFragment"

@@ -1,6 +1,7 @@
 package com.mohylov.diet.ui.data.products
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
@@ -19,9 +20,12 @@ interface ProductDao {
     fun getProductById(productId: Long): ProductEntity
 
     @Insert(onConflict = REPLACE)
-    fun insertAllFoods(foodsList: List<ProductEntity>)
+    fun insertAllProducts(foodsList: List<ProductEntity>)
 
     @Insert
     fun insertProduct(product: ProductEntity)
+
+    @Query("DELETE  FROM products WHERE id = :productId")
+    fun removeProduct(productId: Long)
 
 }

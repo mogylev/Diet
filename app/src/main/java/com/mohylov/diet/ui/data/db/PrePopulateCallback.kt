@@ -28,7 +28,7 @@ class PrePopulateCallback @Inject constructor(
 
     private fun populateFoodDao(initialProductList: List<ProductEntity>) {
         val foodDao = productDaoProvider.get()
-        foodDao.insertAllFoods(initialProductList)
+        foodDao.insertAllProducts(initialProductList)
     }
 
 }

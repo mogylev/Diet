@@ -1,12 +1,11 @@
 package com.mohylov.diet.ui.presentation.mealsList.adapters
 
-import android.annotation.SuppressLint
 import android.util.SparseArray
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.mohylov.diet.ui.presentation.mealsList.adapters.adapterDelegate.DelegateAdapter
+import com.mohylov.diet.ui.presentation.mealsList.adapters.adapterDelegate.BaseDelegateAdapter
 import com.mohylov.diet.ui.presentation.mealsList.adapters.adapterDelegate.DelegateAdapterItem
 import java.lang.IllegalArgumentException
 
@@ -19,7 +18,6 @@ val callback = object : DiffUtil.ItemCallback<DelegateAdapterItem>() {
         return oldItem.id() == newItem.id() && oldItem::class == newItem::class
     }
 
-    @SuppressLint("DiffUtilEquals")
     override fun areContentsTheSame(
         oldItem: DelegateAdapterItem,
         newItem: DelegateAdapterItem
@@ -29,8 +27,8 @@ val callback = object : DiffUtil.ItemCallback<DelegateAdapterItem>() {
 
 }
 
-class BaseDelegateAdapter(
-    private val delegates: SparseArray<DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>>
+class DelegateAdapter(
+    private val delegates: SparseArray<BaseDelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>>
 ) : ListAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>(callback) {
 
     override fun getItemViewType(position: Int): Int {
@@ -39,7 +37,7 @@ class BaseDelegateAdapter(
                 return delegates.keyAt(i)
             }
         }
-        throw IllegalArgumentException("Adapter has now proper viewType")
+        throw IllegalArgumentException("Adapter has no proper viewType")
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

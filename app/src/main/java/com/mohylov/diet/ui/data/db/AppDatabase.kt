@@ -10,7 +10,7 @@ import com.mohylov.diet.ui.data.products.ProductDao
 import com.mohylov.diet.ui.data.products.entities.ProductEntity
 
 @TypeConverters(ProductsConverter::class)
-@Database(entities = [ProductEntity::class, MealProductEntity::class], version = 1)
+@Database(entities = [ProductEntity::class, MealProductEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun productsDao(): ProductDao

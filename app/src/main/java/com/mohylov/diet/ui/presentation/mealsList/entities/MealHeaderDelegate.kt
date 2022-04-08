@@ -6,13 +6,14 @@ import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.mohylov.diet.databinding.MealHeaderItemBinding
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealType
-import com.mohylov.diet.ui.presentation.mealsList.adapters.adapterDelegate.DelegateAdapter
+import com.mohylov.diet.ui.presentation.mealsList.adapters.adapterDelegate.BaseDelegateAdapter
 import com.mohylov.diet.ui.presentation.mealsList.adapters.adapterDelegate.DelegateAdapterItem
+import com.mohylov.diet.ui.presentation.mealsList.adapters.adapterDelegate.Equatable
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 
-class MealHeaderDelegateItem(
+data class MealHeaderDelegateItem(
     val mealType: MealType,
     @StringRes val mealNameResId: Int
 ) : DelegateAdapterItem {
@@ -21,14 +22,14 @@ class MealHeaderDelegateItem(
         return mealType
     }
 
-    override fun content(): Any {
-        return mealType
+    override fun content(): Equatable {
+        return this
     }
 
 }
 
 class MealHeaderAdapterDelegate :
-    DelegateAdapter<MealHeaderDelegateItem, MealHeaderViewHolder>(MealHeaderDelegateItem::class.java) {
+    BaseDelegateAdapter<MealHeaderDelegateItem, MealHeaderViewHolder>(MealHeaderDelegateItem::class.java) {
 
     private val _clickFlow = MutableSharedFlow<MealHeaderDelegateItem>(
         extraBufferCapacity = 1,

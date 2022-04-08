@@ -1,7 +1,9 @@
 package com.mohylov.diet.ui.presentation.search
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -50,6 +52,22 @@ class SearchFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.setOnApplyWindowInsetsListener { v, insets ->
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                val keyBoardShown = insets.isVisible(WindowInsets.Type.ime())
+                var height = 0
+                height = if(keyBoardShown){
+                    val imeInsets = insets.getInsets(WindowInsets.Type.ime())
+                    imeInsets.bottom
+                }else{
+                    0
+                }
+                Log.e("tag!!!", "onViewCreated:  $keyBoardShown    $height ")
+            } else {
+                TODO("VERSION.SDK_INT < R")
+            }
+            insets
+        }
         initClickProductListener()
         binding.topBar.root.apply {
             title = getString(args.mealInfo.mealNameResId)

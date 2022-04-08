@@ -1,30 +1,46 @@
 package com.mohylov.diet.ui.presentation.mealsList.adapters
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
+import android.view.*
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mohylov.diet.R
 import com.mohylov.diet.databinding.MealProductItemBinding
 import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 
+private val productsDiffCallback = object : DiffUtil.ItemCallback<ProductViewItem>() {
 
-class ProductsAdapter :
+    override fun areItemsTheSame(
+        oldItem: ProductViewItem,
+        newItem: ProductViewItem
+    ): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(
+        oldItem: ProductViewItem,
+        newItem: ProductViewItem
+    ): Boolean {
+        return oldItem.protein == newItem.protein
+    }
+
+}
+
+open class ProductsAdapter :
     ListAdapter<ProductViewItem, ProductsAdapter.MealProductViewHolder>(
-        mealProductsDiffCallback
+        productsDiffCallback
     ) {
 
-    val clickFlow = MutableSharedFlow<ProductViewItem>(
+    private val _clickFlow = MutableSharedFlow<ProductViewItem>(
         extraBufferCapacity = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
-    val longClickFlow = MutableSharedFlow<ProductViewItem>(
-        extraBufferCapacity = 1,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
+    val clickFlow: Flow<ProductViewItem>
+        get() = _clickFlow
 
     inner class MealProductViewHolder(
         val binding: MealProductItemBinding,
@@ -38,16 +54,16 @@ class ProductsAdapter :
             val context = binding.root.context
             binding.apply {
                 productName.text = productItem.name
-                productCarbo.text = context.getString(
+                productInfo.carbohydrates.text = context.getString(
                     R.string.carbohydrates, productItem.carbohydrates
                 )
-                productFats.text = context.getString(
+                productInfo.fats.text = context.getString(
                     R.string.fats, productItem.fats
                 )
-                productKkal.text = context.getString(
+                productInfo.calories.text = context.getString(
                     R.string.calories, productItem.calories
                 )
-                productProtein.text = context.getString(
+                productInfo.proteins.text = context.getString(
                     R.string.proteins, productItem.protein
                 )
             }
@@ -61,36 +77,13 @@ class ProductsAdapter :
             )
         ).apply {
             binding.rootContainer.setOnClickListener {
-                clickFlow.tryEmit(productItem ?: return@setOnClickListener)
-            }
-            binding.rootContainer.setOnLongClickListener {
-                longClickFlow.tryEmit(productItem ?: return@setOnLongClickListener false)
+                _clickFlow.tryEmit(productItem ?: return@setOnClickListener)
             }
         }
     }
 
     override fun onBindViewHolder(holder: MealProductViewHolder, position: Int) {
         holder.bind(getItem(position))
-    }
-
-    companion object {
-        val mealProductsDiffCallback = object : DiffUtil.ItemCallback<ProductViewItem>() {
-
-            override fun areItemsTheSame(
-                oldItem: ProductViewItem,
-                newItem: ProductViewItem
-            ): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(
-                oldItem: ProductViewItem,
-                newItem: ProductViewItem
-            ): Boolean {
-                return oldItem.protein == newItem.protein
-            }
-
-        }
     }
 
 }

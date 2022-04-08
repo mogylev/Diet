@@ -9,6 +9,7 @@ import com.mohylov.diet.ui.presentation.base.BaseViewAction
 import com.mohylov.diet.ui.presentation.base.BaseViewModel
 import com.mohylov.diet.ui.presentation.base.BaseViewState
 import com.mohylov.diet.ui.presentation.base.NavigationActions
+import com.mohylov.diet.ui.presentation.main.MainFragmentDirections
 import com.mohylov.diet.ui.presentation.mealsList.adapters.ProductViewItem
 import com.mohylov.diet.ui.presentation.mappers.toProductViewItem
 import com.mohylov.diet.ui.presentation.search.entities.AmountInfo
@@ -32,7 +33,7 @@ class SearchViewModel(
     }
 
     fun onSearchTextChanged(searchQuery: String) {
-        productsInteractor.getProductsBySearchFilter(searchQuery)
+        productsInteractor.searchProducts(searchQuery)
             .onEach { products ->
                 updateState(getViewState().copy(
                     filteredProducts = products.map { it.toProductViewItem() }
@@ -66,8 +67,8 @@ class SearchViewModel(
 
     fun onAddictProductMenuClick() {
         navigate(
-            NavigationActions.NavigationAction(
-                SearchFragmentDirections.actionSearchFragmentToProductAdditionFragment()
+            NavigationActions.DietNavigation(
+                MainFragmentDirections.actionMainFragmentToProductAdditionFragment()
             )
         )
     }

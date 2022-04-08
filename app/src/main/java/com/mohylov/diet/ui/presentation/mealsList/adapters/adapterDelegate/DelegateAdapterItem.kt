@@ -1,8 +1,9 @@
 package com.mohylov.diet.ui.presentation.mealsList.adapters.adapterDelegate
 
-interface DelegateAdapterItem {
+interface DelegateAdapterItem : Equatable {
 
     fun id(): Any
 
-    fun content(): Any
+    fun content(): Equatable
+
 }

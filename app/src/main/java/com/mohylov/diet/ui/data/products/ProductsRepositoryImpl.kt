@@ -13,7 +13,13 @@ import javax.inject.Inject
 class ProductsRepositoryImpl @Inject constructor(private val productDao: ProductDao) :
     ProductsRepository {
 
-    override fun getProductsBySearchQuery(searchFilter: String): Flow<List<ProductItem>> {
+    override suspend fun getProducts(): List<ProductItem> {
+        return withContext(Dispatchers.IO) {
+            productDao.getAll().map { it.toProductItem() }
+        }
+    }
+
+    override fun searchProducts(searchFilter: String): Flow<List<ProductItem>> {
         return flow {
             emit(productDao.getFilteredProducts(searchFilter).map { it.toProductItem() })
         }.flowOn(Dispatchers.IO)
@@ -26,8 +32,14 @@ class ProductsRepositoryImpl @Inject constructor(private val productDao: Product
     }
 
     override suspend fun createProduct(product: ProductItem) {
-        return withContext(Dispatchers.IO) {
+        withContext(Dispatchers.IO) {
             productDao.insertProduct(product.toProductEntity())
+        }
+    }
+
+    override suspend fun removeProduct(productId: Long) {
+        withContext(Dispatchers.IO) {
+            productDao.removeProduct(productId)
         }
     }
 }
