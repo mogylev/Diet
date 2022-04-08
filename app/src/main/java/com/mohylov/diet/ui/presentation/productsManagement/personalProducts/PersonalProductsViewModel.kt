@@ -5,6 +5,9 @@ import com.mohylov.diet.ui.domain.products.remove.ProductRemovingInteractor
 import com.mohylov.diet.ui.presentation.base.BaseViewAction
 import com.mohylov.diet.ui.presentation.base.BaseViewModel
 import com.mohylov.diet.ui.presentation.base.BaseViewState
+import com.mohylov.diet.ui.presentation.base.NavigationActions
+import com.mohylov.diet.ui.presentation.main.MainFragmentDirections
+import com.mohylov.diet.ui.presentation.main.MainNavFragment
 import com.mohylov.diet.ui.presentation.mappers.toProductViewItem
 import com.mohylov.diet.ui.presentation.mealsList.adapters.ProductViewItem
 import com.mohylov.diet.ui.presentation.productsManagement.personalProducts.adapters.PopUpMenuItem
@@ -63,6 +66,14 @@ class PersonalProductsViewModel @Inject constructor(
 
     private fun initState() {
         stateData.value = PersonalProductsViewState()
+    }
+
+    fun onProductAdditionClick() {
+        navigate(
+            NavigationActions.MainNavigation(
+                MainFragmentDirections.actionMainFragmentToProductAdditionFragment()
+            )
+        )
     }
 
 }
