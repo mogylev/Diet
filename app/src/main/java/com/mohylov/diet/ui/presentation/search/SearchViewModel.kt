@@ -28,18 +28,15 @@ class SearchViewModel(
     private val mealProductsManagementInteractor: MealProductsManagementInteractor
 ) : BaseViewModel<SearchViewState, SearchViewActions>() {
 
+    private var searchQuery = ""
+
     init {
         initViewState()
     }
 
     fun onSearchTextChanged(searchQuery: String) {
-        productsInteractor.searchProducts(searchQuery)
-            .onEach { products ->
-                updateState(getViewState().copy(
-                    filteredProducts = products.map { it.toProductViewItem() }
-                ))
-            }.launchIn(viewModelScope)
-
+        this.searchQuery = searchQuery
+        refreshData()
     }
 
     fun onProductClicked(productViewItem: ProductViewItem) {
@@ -65,12 +62,22 @@ class SearchViewModel(
         }
     }
 
-    fun onAddictProductMenuClick() {
+    fun onAddictProductClick() {
         navigate(
-            NavigationActions.DietNavigation(
+            NavigationActions.MainNavigation(
                 MainFragmentDirections.actionMainFragmentToProductAdditionFragment()
             )
         )
+    }
+
+    fun refreshData() {
+        productsInteractor.searchProducts(searchQuery)
+            .onEach { products ->
+                updateState(getViewState().copy(
+                    filteredProducts = products.map { it.toProductViewItem() }
+                ))
+            }.launchIn(viewModelScope)
+
     }
 
 

@@ -67,6 +67,9 @@ class PersonalProductsFragment :
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle)
                 .launchIn(lifecycleScope)
         }
+        binding.productAddition.setOnClickListener {
+            viewModel.onProductAdditionClick()
+        }
     }
 
     override fun viewStateChanged(state: PersonalProductsViewState) {

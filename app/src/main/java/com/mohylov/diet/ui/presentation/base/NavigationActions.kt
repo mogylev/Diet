@@ -7,7 +7,7 @@ sealed class NavigationActions {
     data class NavigationAction(val direction: NavDirections, val navOptions: NavOptions? = null) :
         NavigationActions()
 
-    data class DietNavigation(val direction: NavDirections, val navOptions: NavOptions? = null) :
+    data class MainNavigation(val direction: NavDirections, val navOptions: NavOptions? = null) :
         NavigationActions()
 
     object PopBackStack : NavigationActions()
