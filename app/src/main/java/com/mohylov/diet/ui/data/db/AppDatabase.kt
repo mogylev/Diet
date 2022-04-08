@@ -2,13 +2,18 @@ package com.mohylov.diet.ui.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.mohylov.diet.ui.data.meal.entities.MealEntity
-import com.mohylov.diet.ui.data.product.entities.ProductEntity
+import androidx.room.TypeConverters
+import com.mohylov.diet.ui.data.db.converter.ProductsConverter
+import com.mohylov.diet.ui.data.mealProducts.MealProductDao
+import com.mohylov.diet.ui.data.mealProducts.entities.MealProductEntity
+import com.mohylov.diet.ui.data.products.ProductDao
+import com.mohylov.diet.ui.data.products.entities.ProductEntity
 
-@Database(entities = [ProductEntity::class, MealEntity::class], version = 1)
+@TypeConverters(ProductsConverter::class)
+@Database(entities = [ProductEntity::class, MealProductEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun foodDao(): ProductDao
+    abstract fun productsDao(): ProductDao
 
-    abstract fun mealDao(): MealDao
+    abstract fun mealProductDao(): MealProductDao
 }

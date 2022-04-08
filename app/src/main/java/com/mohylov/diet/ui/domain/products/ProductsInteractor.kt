@@ -5,5 +5,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface ProductsInteractor {
 
-    fun getFoods():Flow<List<ProductItem>>
+    fun searchProducts(searchFilter: String): Flow<List<ProductItem>>
+
+    suspend fun getProductById(productId: Long): ProductItem
+
 }
