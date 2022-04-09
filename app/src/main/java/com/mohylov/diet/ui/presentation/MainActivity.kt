@@ -18,8 +18,10 @@ class MainActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
+            val mainNavFragment = MainNavFragment()
             supportFragmentManager.commit {
-                replace(R.id.root_container, MainNavFragment())
+                replace(R.id.root_container, mainNavFragment)
+                setPrimaryNavigationFragment(mainNavFragment)
             }
         }
     }
