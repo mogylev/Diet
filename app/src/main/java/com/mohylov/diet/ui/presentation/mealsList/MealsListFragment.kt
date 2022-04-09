@@ -1,7 +1,6 @@
 package com.mohylov.diet.ui.presentation.mealsList
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.SparseArray
 import android.view.View
@@ -10,14 +9,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mohylov.diet.R
 import com.mohylov.diet.databinding.FragmentMealsListBinding
 import com.mohylov.diet.ui.appComponent
 import com.mohylov.diet.ui.di.BaseViewModelFactory
-import com.mohylov.diet.ui.di.components.mainComponent.DaggerMainScreenComponent
-import com.mohylov.diet.ui.di.components.mainComponent.MainScreenComponent
-import com.mohylov.diet.ui.domain.mealProductsCalculator.entities.NutrtientResult
+import com.mohylov.diet.ui.di.components.mealsListComponent.DaggerMealsListScreenComponent
+import com.mohylov.diet.ui.di.components.mealsListComponent.MealsListScreenComponent
+import com.mohylov.diet.ui.domain.nutrientsCalculator.entities.NutrtientResult
 import com.mohylov.diet.ui.presentation.base.BaseFragment
 import com.mohylov.diet.ui.presentation.base.scopedComponent
 import com.mohylov.diet.ui.presentation.base.viewBinding
@@ -45,8 +43,8 @@ class MealsListFragment : BaseFragment<MainScreenViewState,
     @Inject
     lateinit var factory: BaseViewModelFactory
 
-    private val screenComponent: MainScreenComponent by scopedComponent {
-        DaggerMainScreenComponent.builder().deps(requireContext().appComponent()).build()
+    private val screenComponent: MealsListScreenComponent by scopedComponent {
+        DaggerMealsListScreenComponent.builder().deps(requireContext().appComponent()).build()
     }
 
     override val viewModel: MealsListViewModel by viewModels { factory }

@@ -3,8 +3,8 @@ package com.mohylov.diet.ui.presentation.mealsList
 import com.mohylov.diet.ui.domain.filter.FiltersInteractor
 import com.mohylov.diet.ui.domain.mealProducts.MealProductsInteractor
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealProductItem
-import com.mohylov.diet.ui.domain.mealProductsCalculator.MealProductCalculateInteractor
-import com.mohylov.diet.ui.domain.mealProductsCalculator.entities.NutrtientResult
+import com.mohylov.diet.ui.domain.nutrientsCalculator.NutrientsCalculateInteractor
+import com.mohylov.diet.ui.domain.nutrientsCalculator.entities.NutrtientResult
 import com.mohylov.diet.ui.domain.mealProductsManagement.MealProductsManagementInteractor
 import com.mohylov.diet.ui.presentation.base.BaseViewAction
 import com.mohylov.diet.ui.presentation.base.BaseViewModel
@@ -18,14 +18,13 @@ import com.mohylov.diet.ui.presentation.mealEdit.entities.MealProductInfo
 import com.mohylov.diet.ui.presentation.search.entities.MealInfo
 import kotlinx.coroutines.flow.first
 import java.time.Instant
-import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 
 class MealsListViewModel @Inject constructor(
     private val mealProductsInteractor: MealProductsInteractor,
     private val mealProductsManagementInteractor: MealProductsManagementInteractor,
-    private val mealProductsCalculatorInteractor: MealProductCalculateInteractor,
+    private val mealProductsCalculatorInteractor: NutrientsCalculateInteractor,
     private val filtersInteractor: FiltersInteractor
 ) : BaseViewModel<MainScreenViewState, MainScreenViewActions>() {
 

@@ -1,12 +1,12 @@
-package com.mohylov.diet.ui.domain.mealProductsCalculator
+package com.mohylov.diet.ui.domain.nutrientsCalculator
 
 import com.mohylov.diet.ui.domain.mealProducts.entities.MealProductItem
-import com.mohylov.diet.ui.domain.mealProductsCalculator.entities.NutrtientResult
+import com.mohylov.diet.ui.domain.nutrientsCalculator.entities.NutrtientResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class MealProductsCalculatorInteractorImpl @Inject constructor() : MealProductCalculateInteractor {
+class NutrientsCalculatorInteractorImpl @Inject constructor() : NutrientsCalculateInteractor {
 
     override suspend fun calculateNutrients(mealProducts: List<MealProductItem>): NutrtientResult {
         return withContext(Dispatchers.Default) {

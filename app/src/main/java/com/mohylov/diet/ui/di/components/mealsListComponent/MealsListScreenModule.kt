@@ -1,4 +1,4 @@
-package com.mohylov.diet.ui.di.components.mainComponent
+package com.mohylov.diet.ui.di.components.mealsListComponent
 
 import androidx.lifecycle.ViewModel
 import com.mohylov.diet.ui.data.db.AppDatabase
@@ -11,8 +11,8 @@ import com.mohylov.diet.ui.domain.filter.FiltersInteractor
 import com.mohylov.diet.ui.domain.filter.FiltersInteractorImpl
 import com.mohylov.diet.ui.domain.mealProducts.MealProductsInteractor
 import com.mohylov.diet.ui.domain.mealProducts.MealProductsInteractorImpl
-import com.mohylov.diet.ui.domain.mealProductsCalculator.MealProductCalculateInteractor
-import com.mohylov.diet.ui.domain.mealProductsCalculator.MealProductsCalculatorInteractorImpl
+import com.mohylov.diet.ui.domain.nutrientsCalculator.NutrientsCalculateInteractor
+import com.mohylov.diet.ui.domain.nutrientsCalculator.NutrientsCalculatorInteractorImpl
 import com.mohylov.diet.ui.domain.mealProductsManagement.MealProductsManagementInteractor
 import com.mohylov.diet.ui.domain.mealProductsManagement.MealProductsManagementImpl
 import com.mohylov.diet.ui.presentation.mealsList.MealsListViewModel
@@ -22,7 +22,7 @@ import dagger.Provides
 import dagger.multibindings.IntoMap
 
 @Module
-interface MainScreenModule {
+interface MealsListScreenModule {
 
     @Binds
     fun bindFiltersInteractor(filtersInteractorImpl: FiltersInteractorImpl): FiltersInteractor
@@ -40,8 +40,8 @@ interface MainScreenModule {
 
     @Binds
     fun bindMealProductsCalculatorInteractor(
-        mealProductsCalculatorInteractorImpl: MealProductsCalculatorInteractorImpl
-    ): MealProductCalculateInteractor
+        nutrientsCalculatorInteractorImpl: NutrientsCalculatorInteractorImpl
+    ): NutrientsCalculateInteractor
 
     @Binds
     @[IntoMap ViewModelKey(MealsListViewModel::class)]

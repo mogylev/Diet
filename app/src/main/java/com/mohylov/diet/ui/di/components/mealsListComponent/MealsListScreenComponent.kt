@@ -1,13 +1,13 @@
-package com.mohylov.diet.ui.di.components.mainComponent
+package com.mohylov.diet.ui.di.components.mealsListComponent
 
 import com.mohylov.diet.ui.di.AppComponent
 import com.mohylov.diet.ui.presentation.mealsList.MealsListFragment
 import dagger.Component
 
 
-@MainScreenScope
-@Component(modules = [MainScreenModule::class], dependencies = [AppComponent::class])
-interface MainScreenComponent {
+@MealsListScreenScope
+@Component(modules = [MealsListScreenModule::class], dependencies = [AppComponent::class])
+interface MealsListScreenComponent {
 
     fun inject(mealsListFragment: MealsListFragment)
 
@@ -16,7 +16,7 @@ interface MainScreenComponent {
 
         fun deps(appComponent: AppComponent): Builder
 
-        fun build(): MainScreenComponent
+        fun build(): MealsListScreenComponent
     }
 
 }

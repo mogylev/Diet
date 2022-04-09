@@ -1,4 +1,4 @@
-package com.mohylov.diet.ui.domain.mealProductsCalculator.entities
+package com.mohylov.diet.ui.domain.nutrientsCalculator.entities
 
 data class NutrtientResult(
     val totalAmount: Int,
